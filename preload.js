@@ -136,7 +136,7 @@ const getRequiredScripts = async (url) => {
     var keyBindListener = function (e){
       console.log(document.activeElement.tagName);
       if (document.activeElement.tagName === "INPUT") return console.log("An input is focused");
-      if (document.activeElement.tagName === "Textarea") return console.log("A textarea is focused");
+      if (document.activeElement.tagName === "TEXTAREA") return console.log("A textarea is focused");
       console.log(e);
       
       var pressedKey = "";
