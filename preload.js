@@ -1,5 +1,5 @@
 const { ipcRenderer } = require("electron");
-const { post } = require("got");
+//const { post } = require("got");
 
 global.sendToWindow = (type, args = undefined) => {
   if(args == undefined) return ipcRenderer.sendToHost(type)
@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     } 
     if(event.data.type == "openPageWithSubMenu"){
       sendToWindow('openPageWithSubMenu', event.data)
+    }
+    if(event.data.type == "keybind"){
+      sendToWindow('keybind', event.data.key)
     }
   });
   
@@ -120,6 +123,59 @@ const getRequiredScripts = async (url) => {
     });
     scrollUp();
 
+
+
+    function keybind(key){
+      var item = {
+        type: "keybind",
+        key: key
+      }
+      window.postMessage(item);
+    }
+
+    var keyBindListener = function (e){
+      console.log(document.activeElement.tagName);
+      if (document.activeElement.tagName === "INPUT") return console.log("An input is focused");
+      if (document.activeElement.tagName === "Textarea") return console.log("A textarea is focused");
+      console.log(e);
+      
+      var pressedKey = "";
+      if(e.type == "mousedown"){
+        if(e.button != 0 && e.button != 1 && e.button != 2){
+          if(e.shiftKey) pressedKey += "Shift+";
+          if(e.ctrlKey) pressedKey += "Ctrl+";
+          if(e.altKey) pressedKey += "Alt+";
+          pressedKey += 'Mouse' + e.button;
+        }
+      }
+      else if(e.type == "keypress"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      else if(e.type == "keydown"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      if(pressedKey != '') keybind(pressedKey);
+    }
+
+
+    try{
+      window.addEventListener('keypress', this.keyBindListener, false);
+      window.addEventListener('keydown', function(e){
+        if((e.key.startsWith('F') && e.key != "F") || e.key == 'Escape' || e.key == 'Backspace') self.keyBindListener(e);
+      }, false);
+      window.addEventListener('mousedown', this.keyBindListener, false);
+      
+    }
+    catch (error) {
+      console.log(error);
+    }
+
     `;
   }
   return script;
@@ -130,7 +186,15 @@ const getRequiredScriptsAfter = async (url) => {
   var script = "";
   if(url.includes('https://simple-mmo.com/')){
     script += `
-    function app(){if(!this||this==window)return new app;var o=function(){return"thanks for calling!"};return o.__proto__=app.prototype,o.constructor=app,o}app.prototype={openScrollableTabPage:function(guildName, menu){requiredAppFunction(guildName, menu);},__proto__:Function.prototype},app=new app;
+    function app(){
+      if(!this||this==window)return new app;
+      var o=function(){return"thanks for calling!"};
+      return o.__proto__=app.prototype,o.constructor=app,o}
+      app.prototype={
+        openScrollableTabPage:function(title, menu){requiredAppFunction(title, menu);},
+        openFixedTabPage:function(title, menu){requiredAppFunction(title, menu);},
+      __proto__:Function.prototype
+    },app=new app;
 
 
     
@@ -148,7 +212,6 @@ const getRequiredScriptsAfter = async (url) => {
       }; 
       window.postMessage(item);
     }
-  
     `;
   }
   return script;

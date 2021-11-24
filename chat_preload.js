@@ -1,5 +1,5 @@
 const { ipcRenderer } = require("electron");
-const { post } = require("got");
+//const { post } = require("got");
 
 global.sendToWindow = (type, args = undefined) => {
   console.log(type, args);

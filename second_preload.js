@@ -1,5 +1,5 @@
 const { ipcRenderer } = require("electron");
-const { post } = require("got");
+//const { post } = require("got");
 
 global.sendToWindow = (type, args = undefined) => {
   console.log(type, args);
@@ -33,6 +33,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     if(event.data == "updatePlayer"){
       sendToWindow('updatePlayer')
+    }
+    if(event.data.type == "openPageWithSubMenu"){
+      sendToWindow('openPageWithSubMenu', event.data)
+    }
+    if(event.data.type == "keybind"){
+      sendToWindow('keybind', event.data.key)
     }
   });
   //END OF LOAD
@@ -81,6 +87,69 @@ const getRequiredScripts = async (url) => {
       window.postMessage('updatePlayer');
     }
 
+    function requiredAppFunction(title, menu){
+      try{
+        console.log(JSON.parse(menu));
+      }
+      catch(e){
+        console.log(menu);
+      }
+      
+      let item = {
+        type: "openPageWithSubMenu", 
+        title: title, menu: menu
+      }; 
+      window.postMessage(item);
+    }
+
+
+    function keybind(key){
+      var item = {
+        type: "keybind",
+        key: key
+      }
+      window.postMessage(item);
+    }
+
+    var keyBindListener = function (e){
+      console.log(e);
+      if (document.activeElement.tagName === "INPUT") return console.log("An input is focused");
+      if (document.activeElement.tagName === "Textarea") return console.log("A textarea is focused");
+      var pressedKey = "";
+      if(e.type == "mousedown"){
+        if(e.button != 0 && e.button != 1 && e.button != 2){
+          if(e.shiftKey) pressedKey += "Shift+";
+          if(e.ctrlKey) pressedKey += "Ctrl+";
+          if(e.altKey) pressedKey += "Alt+";
+          pressedKey += 'Mouse' + e.button;
+        }
+      }
+      else if(e.type == "keypress"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      else if(e.type == "keydown"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      if(pressedKey != '') keybind(pressedKey);
+    }
+
+
+    try{
+      window.addEventListener('keypress', this.keyBindListener, false);
+        window.addEventListener('keydown', function(e){
+          if((e.key.startsWith('F') && e.key != "F") || e.key == 'Escape' || e.key == 'Backspace') self.keyBindListener(e);
+        }, false);
+        window.addEventListener('mousedown', this.keyBindListener, false);
+    }
+    catch (error) {
+      console.log(error);
+    }
 
 
   `;
@@ -94,7 +163,16 @@ const getRequiredScriptsAfter = async (url) => {
     script += `
     //eval(update_chat.toString().replace('app.openLink(', 'viewUser('));
     function ok(){if(!this||this==window)return new ok;var o=function(){return"thanks for calling!"};return o.__proto__=ok.prototype,o.constructor=ok,o}ok.prototype={close:function(){requiredFunction();swal.close();},__proto__:Function.prototype},ok=new ok;
-    function app(){if(!this||this==window)return new app;var o=function(){return"thanks for calling!"};return o.__proto__=app.prototype,o.constructor=app,o}app.prototype={openScrollableTabPage:function(){requiredAppFunction();},__proto__:Function.prototype},app=new app;
+    
+    function app(){
+      if(!this||this==window)return new app;
+      var o=function(){return"thanks for calling!"};
+      return o.__proto__=app.prototype,o.constructor=app,o}
+      app.prototype={
+        openScrollableTabPage:function(title, menu){requiredAppFunction(title, menu);},
+        openFixedTabPage:function(title, menu){requiredAppFunction(title, menu);},
+      __proto__:Function.prototype
+    },app=new app;
   `;
   }
   return script;
