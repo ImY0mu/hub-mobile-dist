@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data.type == "retrieveItem"){
       sendToWindow('retrieveItem', event.data)
     }
+    if(event.data.type == "keybind"){
+      sendToWindow('keybind', event.data.key)
+    }
   });
   //END OF LOAD
 })
@@ -104,6 +107,55 @@ const getRequiredScripts = async (url) => {
     document.querySelector('#chat_guild').setAttribute("style", "padding: 0.4rem 1rem;");
     document.querySelector('#chat_send').setAttribute("style", "padding: 0.4rem 1rem;");
     document.querySelector('.chat-textarea').setAttribute("style", "resize: none;");
+
+
+    function keybind(key){
+      var item = {
+        type: "keybind",
+        key: key
+      }
+      window.postMessage(item);
+    }
+
+    var keyBindListener = function (e){
+      console.log(e);
+      if (document.activeElement.tagName === "INPUT") return console.log("An input is focused");
+      if (document.activeElement.tagName === "Textarea") return console.log("A textarea is focused");
+      var pressedKey = "";
+      if(e.type == "mousedown"){
+        if(e.button != 0 && e.button != 1 && e.button != 2){
+          if(e.shiftKey) pressedKey += "Shift+";
+          if(e.ctrlKey) pressedKey += "Ctrl+";
+          if(e.altKey) pressedKey += "Alt+";
+          pressedKey += 'Mouse' + e.button;
+        }
+      }
+      else if(e.type == "keypress"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      else if(e.type == "keydown"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      if(pressedKey != '') keybind(pressedKey);
+    }
+    try{
+      window.addEventListener('keypress', this.keyBindListener, false);
+        window.addEventListener('keydown', function(e){
+          if((e.key.startsWith('F') && e.key != "F") || e.key == 'Escape' || e.key == 'Backspace') self.keyBindListener(e);
+        }, false);
+        window.addEventListener('mousedown', this.keyBindListener, false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+
+
   `;
   }
   return script;

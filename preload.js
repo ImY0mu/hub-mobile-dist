@@ -163,7 +163,6 @@ const getRequiredScripts = async (url) => {
       if(pressedKey != '') keybind(pressedKey);
     }
 
-
     try{
       window.addEventListener('keypress', this.keyBindListener, false);
       window.addEventListener('keydown', function(e){
@@ -234,3 +233,22 @@ function changeTheme(type){
   console.log("Changing theme to " + type);
   sendToWindow("changeTheme", type);
 }
+
+var multiSelect = false;
+
+ipcRenderer.on("activateMultiselect", () => {
+  try{
+    var buttons = document.querySelectorAll('.text-right.text-indigo-600.text-xs.mt-2.font-medium.mr-2 span');
+    if(multiSelect == false){
+      multiSelect = true;
+      buttons[0].click();
+    }
+      else{
+        multiSelect = false;
+        buttons[1].click();
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+});
