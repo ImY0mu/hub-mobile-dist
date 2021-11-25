@@ -171,6 +171,17 @@ const getRequiredScriptsAfter = async (url) => {
     },app=new app;
   `;
   }
+
+  if(url.includes('quests/view/')){
+    script += `
+      try{
+        eval(clickAndDisable.toString().replace(clickAndDisable.toString(), "function clickAndDisable(){return window.location.href = '/i-am-not-a-bot?new_page=true'}"));
+      }
+      catch(e){
+        console.log(e);
+      }
+    `;
+  }
   return script;
 }
 
