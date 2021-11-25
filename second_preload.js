@@ -113,14 +113,12 @@ const getRequiredScripts = async (url) => {
 
     var keyBindListener = function (e){
       console.log(e);
-      if (document.activeElement.tagName === "INPUT") return console.log("An input is focused");
-      if (document.activeElement.tagName === "TEXTAREA") return console.log("A textarea is focused");
       var pressedKey = "";
       if(e.type == "mousedown"){
         if(e.button != 0 && e.button != 1 && e.button != 2){
           if(e.shiftKey) pressedKey += "Shift+";
           if(e.ctrlKey) pressedKey += "Ctrl+";
-          if(e.altKey) pressedKey += "Alt+";
+          if(e.altKey) pressedKey += "Alt+";  
           pressedKey += 'Mouse' + e.button;
         }
       }
@@ -136,14 +134,14 @@ const getRequiredScripts = async (url) => {
         if(e.altKey) pressedKey += "Alt+";
         pressedKey += e.code;
       }
-      if(pressedKey != '') keybind(pressedKey);
+      if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA" && pressedKey != '') keybind(pressedKey);
     }
     try{
       window.addEventListener('keypress', this.keyBindListener, false);
-        window.addEventListener('keydown', function(e){
-          if((e.key.startsWith('F') && e.key != "F") || e.key == 'Escape' || e.key == 'Backspace') self.keyBindListener(e);
-        }, false);
-        window.addEventListener('mousedown', this.keyBindListener, false);
+      window.addEventListener('keydown', function(e){
+        if((e.key.startsWith('F') && e.key != "F") || e.key == 'Escape' || e.key == 'Backspace') self.keyBindListener(e);
+      }, false);
+      window.addEventListener('mousedown', this.keyBindListener, false);
     }
     catch (error) {
       console.log(error);

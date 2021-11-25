@@ -134,9 +134,7 @@ const getRequiredScripts = async (url) => {
     }
 
     var keyBindListener = function (e){
-      console.log(document.activeElement.tagName);
-      if (document.activeElement.tagName === "INPUT") return console.log("An input is focused");
-      if (document.activeElement.tagName === "TEXTAREA") return console.log("A textarea is focused");
+
       console.log(e);
       
       var pressedKey = "";
@@ -160,7 +158,7 @@ const getRequiredScripts = async (url) => {
         if(e.altKey) pressedKey += "Alt+";
         pressedKey += e.code;
       }
-      if(pressedKey != '') keybind(pressedKey);
+      if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA" && pressedKey != '') keybind(pressedKey);
     }
 
     try{
