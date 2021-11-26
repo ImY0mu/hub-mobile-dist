@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   getRequiredScripts(window.location.href)
   .then(data = (data) => {
-    console.log(data);
     var script = document.createElement('script'); 
     script.className = "SimScript";
     script.innerHTML = data;
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 window.addEventListener('load', function () {
   getRequiredScriptsAfter(window.location.href.toString())
   .then(data = (data) => {
-    console.log(data);
     var script = document.createElement('script'); 
     script.className = "SimEndScript";
     script.innerHTML = data;
@@ -150,6 +148,57 @@ const getRequiredScripts = async (url) => {
 
   `;
   }
+
+
+  if(url.includes('user/view/')){
+    console.log('YES');
+    script += `
+      var userID = '';
+      try{
+        userID = window.location.href.split('user/view/')[1];
+        if(userID.endsWith('/')) userID = userID.split('/')[0];
+        if(userID.includes('#')) userID = userID.split('#')[0];
+        console.log(userID);
+      }
+      catch(e){
+        console.log(e);
+      }
+      function isPatreon(){
+        var patreons = JSON.parse(localStorage.patreon);
+        Object.keys(patreons).forEach(function (k) {
+          if(patreons[k].user_id == userID) {
+            console.log('In the list');
+            if(patreons[k].tier == 2){
+              var icon = 'http://localhost:8081/patreon/star.png';
+              if(patreons[k].icon != '') icon = patreons[k].icon;
+              document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 mt-1 text-yellow-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Patreon Supporter</span></span></div>');
+            }
+            if(patreons[k].tier == 1){
+              var icon = 'http://localhost:8081/patreon/star.png';
+              document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 mt-1 text-indigo-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Patreon Supporter</span></span></div>');
+            }
+          }
+        });
+      }
+      isPatreon();
+    `;
+
+    if(url == 'https://simple-mmo.com/user/view/5944'){
+      script += `
+      
+
+        function isDev(){
+          var icon = 'http://localhost:8081/patreon/dev.png';
+          document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 mt-1 text-red-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Developer of Clients</span></span></div>');
+        }
+
+        isDev();
+      `;
+    }
+    
+  }
+
+
   return script;
 }
 
@@ -172,7 +221,7 @@ const getRequiredScriptsAfter = async (url) => {
   `;
   }
 
-  if(url.includes('quests/view/')){
+  if(url.includes('quests/view/') || url.includes('material/gather/')){
     script += `
       try{
         eval(clickAndDisable.toString().replace(clickAndDisable.toString(), "function clickAndDisable(){return window.location.href = '/i-am-not-a-bot?new_page=true'}"));

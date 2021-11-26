@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   getRequiredScripts(window.location.href.toString())
   .then(data = (data) => {
-    console.log(data);
     var script = document.createElement('script'); 
     script.className = "SimScript";
     script.innerHTML = data;
@@ -69,7 +68,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 window.addEventListener('load', function () {
   getRequiredScriptsAfter(window.location.href.toString())
   .then(data = (data) => {
-    console.log(data);
     var script = document.createElement('script'); 
     script.className = "SimEndScript";
     script.innerHTML = data;
