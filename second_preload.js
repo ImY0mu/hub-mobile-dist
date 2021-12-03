@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data == "updatePlayer"){
       sendToWindow('updatePlayer')
     }
+    if(event.data == "templeTimer"){
+      console.log('Started the timer!');
+      sendToWindow('templeTimer')
+    }
     if(event.data.type == "openPageWithSubMenu"){
       sendToWindow('openPageWithSubMenu', event.data)
     }
@@ -149,6 +153,20 @@ const getRequiredScripts = async (url) => {
   `;
   }
 
+  if(url == 'https://simple-mmo.com/guilds/view/474'){ // add supporter tag to guild
+    var icon = 'http://localhost:8081/patreon/star.png';
+    //document.querySelector('.container-two .max-w-7xl.mx-auto .text-center').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 mt-1 text-indigo-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Patreon Supporters</span></span></div>');
+  }
+
+  if(url.includes('https://simple-mmo.com/temple')){
+    script += `
+    function templeTimer(){
+      console.log('called function');
+      window.postMessage("templeTimer");
+    }
+    `;
+  }
+
 
   if(url.includes('user/view/')){
     console.log('YES');
@@ -195,7 +213,6 @@ const getRequiredScripts = async (url) => {
         isDev();
       `;
     }
-    
   }
 
 
@@ -231,6 +248,21 @@ const getRequiredScriptsAfter = async (url) => {
       }
     `;
   }
+
+  if(url.includes('https://simple-mmo.com/temple')){
+    script += `
+    try{
+      eval(worshipGod.toString()
+        .replace('if (result.value) {', 'if (result.value) { templeTimer();')
+      );
+    }
+    catch(e){
+      console.log(e);
+    }
+    `;
+  }
+
+
   return script;
 }
 
