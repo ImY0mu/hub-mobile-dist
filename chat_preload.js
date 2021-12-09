@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   isReady = false;
   console.log("Page loaded.");
 
+
+  if(document.querySelectorAll('iframe').length > 0) sendToWindow('iframe');
+
   getRequiredScripts(window.location.href.toString())
   .then(data = (data) => {
     var script = document.createElement('script'); 
@@ -100,11 +103,16 @@ const getRequiredScripts = async (url) => {
     
     
 
-    document.querySelector('#chatArea').setAttribute("style", "overflow-y: auto; max-height: calc(100vh - 195px);");
-    document.querySelector('#chat_refresh').setAttribute("style", "padding: 0.4rem 1rem;");
-    document.querySelector('#chat_guild').setAttribute("style", "padding: 0.4rem 1rem;");
-    document.querySelector('#chat_send').setAttribute("style", "padding: 0.4rem 1rem;");
-    document.querySelector('.chat-textarea').setAttribute("style", "resize: none;");
+    try{
+      document.querySelector('#chatArea').setAttribute("style", "overflow-y: auto; max-height: calc(100vh - 195px);");
+      document.querySelector('#chat_refresh').setAttribute("style", "padding: 0.4rem 1rem;");
+      document.querySelector('#chat_guild').setAttribute("style", "padding: 0.4rem 1rem;");
+      document.querySelector('#chat_send').setAttribute("style", "padding: 0.4rem 1rem;");
+      document.querySelector('.chat-textarea').setAttribute("style", "resize: none;");
+    }
+    catch(e){
+      console.log(e);
+    }
 
 
     function keybind(key){
@@ -154,6 +162,74 @@ const getRequiredScripts = async (url) => {
 
   `;
   }
+
+  if(url.includes('https://simple-mmo.com/chat/')){
+    script += `
+
+    function keybind(key){
+      var item = {
+        type: "keybind",
+        key: key
+      }
+      window.postMessage(item);
+    }
+
+    var keyBindListener = function (e){
+      console.log(e);
+      var pressedKey = "";
+      if(e.type == "mousedown"){
+        if(e.button != 0 && e.button != 1 && e.button != 2){
+          if(e.shiftKey) pressedKey += "Shift+";
+          if(e.ctrlKey) pressedKey += "Ctrl+";
+          if(e.altKey) pressedKey += "Alt+";
+          pressedKey += 'Mouse' + e.button;
+        }
+      }
+      else if(e.type == "keypress"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      else if(e.type == "keydown"){
+        if(e.shiftKey) pressedKey += "Shift+";
+        if(e.ctrlKey) pressedKey += "Ctrl+";
+        if(e.altKey) pressedKey += "Alt+";
+        pressedKey += e.code;
+      }
+      if(document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA" && pressedKey != '') keybind(pressedKey);
+    }
+    try{
+      window.addEventListener('keypress', this.keyBindListener, false);
+      window.addEventListener('keydown', function(e){
+        if((e.key.startsWith('F') && e.key != "F") || e.key == 'Escape' || e.key == 'Backspace') self.keyBindListener(e);
+      }, false);
+      window.addEventListener('mousedown', this.keyBindListener, false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+
+    
+    const app = {
+      openLink: (url) => {
+        viewUser(url);
+      },
+    }
+
+
+    function viewUser(url){
+      let item = {
+        type: 'viewUser',
+        url: url
+      }
+      window.postMessage(item);
+    }
+    
+    
+    `;
+  
+  }
   return script;
 }
 
@@ -170,9 +246,6 @@ const getRequiredScriptsAfter = async (url) => {
    catch(e){
      console.log(e);
    }
-    
-    
-
 
 
     function retrieveItem(id, tempid){
@@ -182,6 +255,17 @@ const getRequiredScriptsAfter = async (url) => {
 
   `;
   }
+
+  if(url.includes('https://simple-mmo.com/chat/')){
+    script += `
+    function retrieveItem(id, tempid){
+      let item = {type: "retrieveItem", id: id, tempId: tempid }; 
+      window.postMessage(item);
+    }
+    `;
+  }
+
+
   return script;
 }
 

@@ -1,0 +1,13 @@
+{
+  "notes": [
+    {
+      "title": "Forgot to write patch notes",
+      "version": "0.0.12",
+      "date": "2021-12-09T21:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Improved GPvP tool support"] },
+        { "title": "Bugs", "items": ["Fixed accept/cancel trade", "Fixed new chat"] }
+      ]
+    }
+  ]
+}
