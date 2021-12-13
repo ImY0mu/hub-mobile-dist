@@ -2,6 +2,14 @@
   "notes": [
     {
       "title": "Finally managed to write all the past notes!!",
+      "version": "0.0.17",
+      "date": "2021-12-13T22:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Improved collect keybind"] }
+      ]
+    },
+    {
+      "title": "Finally managed to write all the past notes!!",
       "version": "0.0.16",
       "date": "2021-12-13T21:00:18.175Z",
       "changes": [

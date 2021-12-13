@@ -164,12 +164,18 @@ const getRequiredScripts = async (url) => {
           var element = list[i];
           var name = element.querySelector('.truncate .ml-2.truncate .truncate span').innerText;
           var src = element.querySelector('img').src;
+          var type = element.querySelector('.text-gray-500.font-semibold.mr-4.text-xs.flex-grow.text-right.whitespace-nowrap').innerText;
           names.push(name);
           var quantity = element.querySelector('.truncate .ml-2.truncate .truncate').innerText.split(' ')[0].split('x')[1];
           var id = element.getAttribute("id").split("item-")[1].split("-block")[0];
           console.log(id, JSON.stringify(quantity), getName(i), src)
           if(document.querySelectorAll("#collect-btn-" + id).length == 0){
-            element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \`' + quantity + '\`, \`' + getName(i) + '\`, \`' + src + '\`)" class="p-2 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            if(type == 'Collectable'){
+              element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="collection_collectables(' + id + ', \`' + quantity + '\`, \`' + getName(i) + '\`, \`' + src + '\`)" class="p-2 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
+            else{
+              element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \`' + quantity + '\`, \`' + getName(i) + '\`, \`' + src + '\`)" class="p-2 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
           }
         }
       }
