@@ -153,6 +153,37 @@ const getRequiredScripts = async (url) => {
   `;
   }
 
+  if(url.includes('https://simple-mmo.com/inventory')){ // inventory collect stuff
+    script += `
+    var names = [];
+    function showCollectionBtn(){
+      var list = document.querySelectorAll('.flex.items-center.cursor-pointer');
+      names = []
+      try{
+        for(let i = 0; i < list.length; i++){
+          var element = list[i];
+          var name = element.querySelector('.truncate .ml-2.truncate .truncate span').innerText;
+          var src = element.querySelector('img').src;
+          names.push(name);
+          var quantity = element.querySelector('.truncate .ml-2.truncate .truncate').innerText.split(' ')[0].split('x')[1];
+          var id = element.getAttribute("id").split("item-")[1].split("-block")[0];
+          console.log(id, JSON.stringify(quantity), getName(i), src)
+          if(document.querySelectorAll("#collect-btn-" + id).length == 0){
+            element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \`' + quantity + '\`, \`' + getName(i) + '\`, \`' + src + '\`)" class="p-2 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+          }
+        }
+      }
+      catch(e){
+        console.error(e);
+      }
+    }
+
+    function getName(index){
+      return names[index];
+    }
+    `;
+  }
+
   if(url == 'https://simple-mmo.com/guilds/view/474'){ // add supporter tag to guild
     var icon = 'http://localhost:8081/patreon/star.png';
     //document.querySelector('.container-two .max-w-7xl.mx-auto .text-center').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 mt-1 text-indigo-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Patreon Supporters</span></span></div>');

@@ -1,12 +1,138 @@
 {
   "notes": [
     {
+      "title": "Finally managed to write all the past notes!!",
+      "version": "0.0.16",
+      "date": "2021-12-13T21:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Added new inventory keybind for collecting"] }
+      ]
+    },
+    {
       "title": "Forgot to write patch notes",
-      "version": "0.0.12",
+      "version": "0.0.15",
+      "date": "2021-12-11T21:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Keybinds FIX for GPVP"] },
+        { "title": "Bugs", "items": ["Added focus to new Webview to avoid weird activity"] }
+      ]
+    },
+    {
+      "title": "Forgot to write patch notes",
+      "version": "0.0.14",
       "date": "2021-12-09T21:00:18.175Z",
       "changes": [
         { "title": "General", "items": ["Improved GPvP tool support"] },
         { "title": "Bugs", "items": ["Fixed accept/cancel trade", "Fixed new chat"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.13",
+      "date": "2021-12-03T21:05:14.175Z",
+      "changes": [
+        { "title": "General", "items": ["Improved keybinds navigation"] },
+        { "title": "Bugs", "items": ["Fixed collection's of other players", "Fixed page controller", "Fixed sub navigation"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.12",
+      "date": "2021-12-03T21:02:14.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed keybinds bug"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.11",
+      "date": "2021-12-03T21:01:14.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed background animation bug"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.10",
+      "date": "2021-12-03T21:00:14.175Z",
+      "changes": [
+        { "title": "General", "items": ["Added BA reset", "Added Temple timer", "Added border around the client's window"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.9",
+      "date": "2021-11-25T21:00:14.175Z",
+      "changes": [
+        { "title": "General", "items": ["Patreon support"] },
+        { "title": "Bugs", "items": ["Fixed sidemenu"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.8",
+      "date": "2021-11-24T21:00:14.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed quests verification"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.7",
+      "date": "2021-11-24T21:00:14.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed keybinds at textareas", "Fixed suggestions at Discussion boards"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.6",
+      "date": "2021-11-23T21:00:14.175Z",
+      "changes": [
+        { "title": "General", "items": ["Improved Sub navigation"] },
+        { "title": "Bugs", "items": ["Fixed back navigation bug"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.5",
+      "date": "2021-11-23T21:00:13.175Z",
+      "changes": [
+        { "title": "General", "items": ["Added keybinds", "Added notifications badge"] },
+        { "title": "Bugs", "items": ["Fixed multiple bugs"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.4",
+      "date": "2021-11-23T21:00:12.175Z",
+      "changes": [
+        { "title": "General", "items": ["Added loader"] },
+        { "title": "Bugs", "items": ["Fixed multiple bugs"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.3",
+      "date": "2021-11-23T21:00:11.175Z",
+      "changes": [
+        { "title": "General", "items": ["Test of github release"] }
+      ]
+    },
+    {
+      "title": "Update",
+      "version": "0.0.2",
+      "date": "2021-11-23T21:00:10.175Z",
+      "changes": [
+        { "title": "General", "items": ["Test of github release"] }
+      ]
+    },
+    {
+      "title": "Initial release",
+      "version": "0.0.1",
+      "date": "2021-11-15T21:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Initial release"] }
       ]
     }
   ]
