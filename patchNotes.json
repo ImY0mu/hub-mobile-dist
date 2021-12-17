@@ -1,6 +1,14 @@
 {
   "notes": [
     {
+      "title": "GPVP Fix",
+      "version": "0.0.18",
+      "date": "2021-12-17T22:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed overwhelming number of open webviews when farming GPvP"] }
+      ]
+    },
+    {
       "title": "Finally managed to write all the past notes!!",
       "version": "0.0.17",
       "date": "2021-12-13T22:00:18.175Z",
