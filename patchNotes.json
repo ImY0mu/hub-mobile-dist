@@ -5,7 +5,7 @@
       "version": "0.0.19",
       "date": "2021-12-17T22:00:18.175Z",
       "changes": [
-        { "title": "Bugs", "items": ["Chat client support"] }
+        { "title": "General", "items": ["Chat client support"] }
       ]
     },
     {
