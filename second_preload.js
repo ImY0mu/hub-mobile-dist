@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data.type == "keybind"){
       sendToWindow('keybind', event.data.key)
     }
+    if(event.data.type == "stepTaken"){
+      sendToWindow('stepTaken', event.data.key)
+    }
   });
   //END OF LOAD
 })
@@ -88,6 +91,8 @@ const getRequiredScripts = async (url) => {
       window.postMessage('closeWindow');
       window.postMessage('updatePlayer');
     }
+
+
 
     function requiredAppFunction(title, menu){
       try{
@@ -151,6 +156,27 @@ const getRequiredScripts = async (url) => {
 
 
   `;
+  }
+
+  if(url.includes('https://simple-mmo.com/travel')){
+    script += `
+      console.log('Travel opened in step mode.');
+      var button = document.querySelector('#primaryStepButton');
+
+      button.addEventListener('click', (e) => {
+        console.log(e);
+        countTheStep();
+      })
+
+      function countTheStep(){
+        var item = {
+          type: "stepTaken",
+        }
+        window.postMessage(item);
+      }
+
+
+    `;
   }
 
   if(url.includes('https://simple-mmo.com/inventory')){ // inventory collect stuff

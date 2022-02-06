@@ -1,6 +1,26 @@
 {
   "notes": [
     {
+      "title": "Step Mode Reintroduction",
+      "version": "0.0.20",
+      "date": "2022-02-06T22:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Added Step Mode", 
+            "Small UI change at keybinds to support smaller resolution of window"
+          ] 
+        },
+        { "title": "Step Mode", "items": 
+          [
+            "Step Mode can be found at travel page instead of the travel button", 
+            "Alpha version -> please report bugs"
+          ] 
+        },
+        { "title": "Bugs", "items": ["Fixed Storage/Inventory pink underline highlight going missing after use of search/filter"] }
+      ]
+    },
+    {
       "title": "Preparations for chat client",
       "version": "0.0.19",
       "date": "2021-12-17T22:00:18.175Z",
