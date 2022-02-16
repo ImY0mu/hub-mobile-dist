@@ -2,6 +2,14 @@
   "notes": [
     {
       "title": "Chat fix",
+      "version": "0.0.22",
+      "date": "2022-02-16T22:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed chat bug -> clicking on avatar now opens profile in the game instead of the chat"] }
+      ]
+    },
+    {
+      "title": "Chat fix",
       "version": "0.0.21",
       "date": "2022-02-11T22:00:18.175Z",
       "changes": [
