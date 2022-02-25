@@ -1,6 +1,42 @@
 {
   "notes": [
     {
+      "title": "Additional keybind and improvements",
+      "version": "0.0.24",
+      "date": "2022-02-25T22:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Changes to keybind settings", 
+            "Small size change to notification badge in menu button and menu itself",
+            "Updated footer bar to latest update",
+            "Fixed notification badge colour at light theme"
+          ] 
+        },
+        { "title": "Keybinds (Patreons)", "items": 
+          [
+            "Added Use Item (Travel/NPC battle only)", 
+            "Added Select all items at inventory"
+          ] 
+        },
+        { "title": "Keybinds", "items": 
+          [
+            "Added Zoom in/out/reset",
+            "Added Clear selected items at inventory"
+          ] 
+        }
+        
+      ]
+    },
+    {
+      "title": "Step mode fix and small UI change",
+      "version": "0.0.23",
+      "date": "2022-02-20T22:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed bug where GPVP Tool let you escape the step mode"] }
+      ]
+    },
+    {
       "title": "Chat fix",
       "version": "0.0.22",
       "date": "2022-02-16T22:00:18.175Z",

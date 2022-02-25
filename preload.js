@@ -173,6 +173,65 @@ const getRequiredScripts = async (url) => {
 
     `;
   }
+
+  //Use Item keybind config
+  if(url == 'https://simple-mmo.com/travel' || url.includes('https://simple-mmo.com/npcs/attack/')){ //where to apply
+    script += `
+    function useQuickItemAjax(){
+      $.ajax({
+        type: 'POST',
+        url: 'https://simple-mmo.com/api/quickuse',
+        data: {'_token': document.querySelector('[name="csrf-token"]').content},
+        dataType: 'json',
+        success: function (data) {
+          if (data.result == "success"){
+            Swal.fire({
+              type: 'success',
+              title: 'Success!',
+              html: data.message,
+            });
+            }else{
+            Swal.fire({
+              type: 'error',
+              title: 'Failure',
+              text: data.message,
+            });
+          }
+        }
+      });
+    } 
+
+
+    function useQuickItem(){
+      fetch('https://simple-mmo.com/api/quickuse', {
+        'method': 'POST',
+        body: new URLSearchParams("_token="+document.querySelector('[name="csrf-token"]').content)
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.result == "fail") {
+            Swal.fire({
+              type: 'error',
+              title: 'Failure',
+              text: data.message,
+            });
+          }
+          else{
+            Swal.fire({
+              type: 'success',
+              title: 'Success!',
+              html: data.message,
+            });
+          }
+      });
+    }
+    `;
+
+  }
+
+
+
+
   return script;
 }
 
@@ -248,3 +307,30 @@ ipcRenderer.on("activateMultiselect", () => {
       console.log(e);
     }
 });
+
+ipcRenderer.on("selectAll", () => {
+  try{
+    var items = document.querySelectorAll('[name="multi_item[]"]');
+    for (let i = 0; i < items.length; i++) {
+      const element = items[i];
+      element.checked = true;
+    }
+  }
+  catch(e){
+    console.log(e);
+  }
+});
+
+ipcRenderer.on("deselectAll", () => {
+  try{
+    var items = document.querySelectorAll('[name="multi_item[]"]');
+    for (let i = 0; i < items.length; i++) {
+      const element = items[i];
+      element.checked = false;
+    }
+  }
+  catch(e){
+    console.log(e);
+  }
+});
+
