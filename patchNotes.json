@@ -1,6 +1,14 @@
 {
   "notes": [
     {
+      "title": "Keybinds fix",
+      "version": "0.0.25",
+      "date": "2022-02-25T23:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed keybinds not opening right"] }
+      ]
+    },
+    {
       "title": "Additional keybind and improvements",
       "version": "0.0.24",
       "date": "2022-02-25T22:00:18.175Z",
