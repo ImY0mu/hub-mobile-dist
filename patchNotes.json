@@ -1,6 +1,20 @@
 {
   "notes": [
     {
+      "title": "Small changes and fixes",
+      "version": "0.0.29",
+      "date": "2022-03-04T10:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Application starts with dark mode as default to avoid hurting eyes",
+            "Changed colour of step mode button's icon"
+          ] 
+        },
+        { "title": "Bugs", "items": ["Fixed issue with item customisation"] }
+      ]
+    },
+    {
       "title": "Fixed step mode bug",
       "version": "0.0.28",
       "date": "2022-02-28T23:40:18.175Z",

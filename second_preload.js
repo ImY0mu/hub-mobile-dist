@@ -360,6 +360,17 @@ const getRequiredScriptsAfter = async (url) => {
   `;
   }
 
+  if(url.includes('https://simple-mmo.com/item/customise/')){
+    script += `
+      try{
+        eval(changeSprite.toString().replace(' $("#change-sprite-warning").show();', "document.querySelector('#change-sprite-warning').style.display = '';"));
+      }
+      catch(e){
+        console.log(e);
+      }
+    `;
+  }
+
   if(url.includes('quests/view/') || url.includes('material/gather/')){
     script += `
       try{
