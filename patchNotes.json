@@ -17,7 +17,7 @@
     {
       "title": "Fixed step mode bug",
       "version": "0.0.28",
-      "date": "2022-02-28T23:40:18.175Z",
+      "date": "2022-02-28T12:30:00.175Z",
       "changes": [
         { "title": "Bugs", "items": ["Fixed keybinds not working after escaping easy step mode", "Fixed spy not opening in new window"] }
       ]
@@ -25,7 +25,7 @@
     {
       "title": "Improvements to page controller",
       "version": "0.0.27",
-      "date": "2022-02-28T23:30:18.175Z",
+      "date": "2022-02-28T12:00:00.175Z",
       "changes": [
         { "title": "Bugs", "items": ["Fixed showcase and feed not opening in new window", "Fixed links to smmo's social media opening in client"] }
       ]
