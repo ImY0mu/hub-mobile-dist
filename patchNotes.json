@@ -2,22 +2,31 @@
   "notes": [
     {
       "title": "Small changes and fixes",
+      "version": "0.0.30",
+      "date": "2022-03-05T12:40:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed Light/Dark theme bug"] }
+      ]
+    },
+    {
+      "title": "Small changes and fixes",
       "version": "0.0.29",
       "date": "2022-03-04T10:40:18.175Z",
       "changes": [
         { "title": "General", "items": 
           [
             "Application starts with dark mode as default to avoid hurting eyes",
-            "Changed colour of step mode button's icon"
+            "Changed colour of step mode button's icon",
+            "Added small notes to keybinds settings"
           ] 
         },
-        { "title": "Bugs", "items": ["Fixed issue with item customisation"] }
+        { "title": "Bugs", "items": ["Fixed issue with item customisation", "Fixed keybind not being patreon only"] }
       ]
     },
     {
       "title": "Fixed step mode bug",
       "version": "0.0.28",
-      "date": "2022-02-28T12:30:00.175Z",
+      "date": "2022-02-28T23:40:18.175Z",
       "changes": [
         { "title": "Bugs", "items": ["Fixed keybinds not working after escaping easy step mode", "Fixed spy not opening in new window"] }
       ]
@@ -25,7 +34,7 @@
     {
       "title": "Improvements to page controller",
       "version": "0.0.27",
-      "date": "2022-02-28T12:00:00.175Z",
+      "date": "2022-02-28T23:30:18.175Z",
       "changes": [
         { "title": "Bugs", "items": ["Fixed showcase and feed not opening in new window", "Fixed links to smmo's social media opening in client"] }
       ]
