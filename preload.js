@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   if (window.getComputedStyle(document.body, null).getPropertyValue("background-color") == "rgb(13, 13, 13)"){
     changeTheme("dark");
   } 
+  else if(window.getComputedStyle(document.querySelector('body div'), null).getPropertyValue("background-color") == 'rgb(26, 32, 44)' || window.getComputedStyle(document.querySelector('body div'), null).getPropertyValue("background-color") == 'rgb(247, 250, 252)'){
+    //error page
+  }
   else{
     changeTheme("light");
   }

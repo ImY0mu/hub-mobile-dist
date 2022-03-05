@@ -2,6 +2,14 @@
   "notes": [
     {
       "title": "Small changes and fixes",
+      "version": "0.0.31",
+      "date": "2022-03-05T13:40:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed UI changing theme at 404 error page"] }
+      ]
+    },
+    {
+      "title": "Small changes and fixes",
       "version": "0.0.30",
       "date": "2022-03-05T12:40:18.175Z",
       "changes": [
