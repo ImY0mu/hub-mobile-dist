@@ -1,6 +1,14 @@
 {
   "notes": [
     {
+      "title": "Multiple accounts support",
+      "version": "0.0.32",
+      "date": "2022-03-07T13:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Multiple accounts support"] }
+      ]
+    },
+    {
       "title": "Small changes and fixes",
       "version": "0.0.31",
       "date": "2022-03-05T13:40:18.175Z",
