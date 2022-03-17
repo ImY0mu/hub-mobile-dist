@@ -308,14 +308,23 @@ const getRequiredScripts = async (url) => {
         Object.keys(patreons).forEach(function (k) {
           if(patreons[k].user_id == userID) {
             console.log('In the list');
-            if(patreons[k].tier == 2){
-              var icon = 'http://localhost:8081/patreon/star.png';
-              if(patreons[k].icon != '') icon = patreons[k].icon;
-              document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 mt-1 text-yellow-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Patreon Supporter</span></span></div>');
+            if(patreons[k].icon == '') {
+              if(patreons[k].tier == 3){
+                var icon = 'http://localhost:3000/patreon/ruby_diamond.png';
+                document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-red-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+              }
+              else if(patreons[k].tier == 2){
+                var icon = 'http://localhost:3000/patreon/green_diamond.png';
+                document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-green-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+              }
+              else if(patreons[k].tier == 1){
+                var icon = 'http://localhost:3000/patreon/blue_diamond.png';
+                document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-blue-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+              }
             }
-            if(patreons[k].tier == 1){
-              var icon = 'http://localhost:8081/patreon/star.png';
-              document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 mt-1 text-indigo-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Patreon Supporter</span></span></div>');
+            else{
+              if(patreons[k].icon != '') icon = patreons[k].icon;
+              document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-yellow-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             }
           }
         });
