@@ -2,10 +2,18 @@
   "notes": [
     {
       "title": "Fixes and improvements",
+      "version": "0.0.35-hotfix",
+      "date": "2022-03-17T14:40:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed patreon icons"] }
+      ]
+    },
+    {
+      "title": "Fixes and improvements",
       "version": "0.0.34",
       "date": "2022-03-17T13:40:18.175Z",
       "changes": [
-        { "title": "General", "items": ["New patreon icons"] },
+        { "title": "General", "items": ["Changed design of patreon badge at profile", "Added new patreon icons"] },
         { "title": "Bugs", "items": ["Improved world boss notification code"] }
       ]
     },
