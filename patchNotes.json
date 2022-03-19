@@ -1,6 +1,14 @@
 {
   "notes": [
     {
+      "title": "Fixes",
+      "version": "0.0.37",
+      "date": "2022-03-18T14:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Improvements to world boss highlight feature"] }
+      ]
+    },
+    {
       "title": "Fixes and improvements",
       "version": "0.0.36",
       "date": "2022-03-18T14:40:18.175Z",
