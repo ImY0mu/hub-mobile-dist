@@ -293,6 +293,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('user/view/')){
     console.log('YES');
     script += `
+    
       var userID = '';
       try{
         userID = window.location.href.split('user/view/')[1];
@@ -316,6 +317,7 @@ const getRequiredScripts = async (url) => {
               else if(patreons[k].tier == 2){
                 var icon = 'http://localhost:8081/patreon/green_diamond.png';
                 document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+                
               }
               else if(patreons[k].tier == 1){
                 var icon = 'http://localhost:8081/patreon/blue_diamond.png';
@@ -323,7 +325,7 @@ const getRequiredScripts = async (url) => {
               }
             }
             else{
-              if(patreons[k].icon != '') icon = patreons[k].icon;
+              if(patreons[k].icon != '') var icon = 'http://localhost:8081/patreon/' + patreons[k].icon.replace('http://y0mu.mablog.eu/patreon_images/', '');
               document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             }
           }
@@ -456,5 +458,3 @@ ipcRenderer.on("deselectAll", () => {
 
 
 /* Additional functions */
-
-
