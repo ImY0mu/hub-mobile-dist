@@ -63,7 +63,7 @@ window.addEventListener('load', function () {
 
 const getRequiredScripts = async (url) => {
   var script = "";
-  if(url.includes('https://chat.simple-mmo.com/')){
+  if(url.includes('chat.simple-mmo.com/')){
     script += `
     function changeScrollBar(){
       var styles = "";
@@ -163,7 +163,7 @@ const getRequiredScripts = async (url) => {
   `;
   }
 
-  if(url.includes('https://simple-mmo.com/chat/')){
+  if(url.includes('simple-mmo.com/chat/')){
     script += `
 
     function keybind(key){
@@ -235,12 +235,12 @@ const getRequiredScripts = async (url) => {
 
 const getRequiredScriptsAfter = async (url) => {
   var script = "";
-  if(url.includes('https://chat.simple-mmo.com/')){
+  if(url.includes('chat.simple-mmo.com/')){
     script += `
 
    try{
     eval(update_chat.toString().replace('app.openLink(', 'viewUser('));
-    eval(update_chat.toString().replace('$.each(data, function(index, element) {', '$.each(data, function(index, element) { if(element.text.includes("app.openLink")){element.text = element.text.replace("app.openLink", "viewUser");} if(element.text.includes("/img") && !element.text.includes("https://simple-mmo.com/img")){ element.text = element.text.replace("/img", "https://simple-mmo.com/img"); }'));
+    eval(update_chat.toString().replace('$.each(data, function(index, element) {', '$.each(data, function(index, element) { if(element.text.includes("app.openLink")){element.text = element.text.replace("app.openLink", "viewUser");} if(element.text.includes("/img") && !element.text.includes("simple-mmo.com/img")){ element.text = element.text.replace("/img", "simple-mmo.com/img"); }'));
     update_chat();
    }
    catch(e){
@@ -256,7 +256,7 @@ const getRequiredScriptsAfter = async (url) => {
   `;
   }
 
-  if(url.includes('https://simple-mmo.com/chat/')){
+  if(url.includes('simple-mmo.com/chat/')){
     script += `
     function retrieveItem(id, tempid){
       let item = {type: "retrieveItem", id: id, tempId: tempid }; 

@@ -88,7 +88,7 @@ window.addEventListener('load', function () {
 const getRequiredScripts = async (url) => {
   console.log(url)
   var script = "";
-  if(url.includes('https://simple-mmo.com/')){
+  if(url.includes('simple-mmo.com/')){
     script += `
 
     function changeScrollBar(){
@@ -178,12 +178,12 @@ const getRequiredScripts = async (url) => {
   }
 
   //Use Item keybind config
-  if(url == 'https://simple-mmo.com/travel' || url.includes('https://simple-mmo.com/npcs/attack/')){ //where to apply
+  if(url == 'simple-mmo.com/travel' || url.includes('simple-mmo.com/npcs/attack/')){ //where to apply
     script += `
     function useQuickItemAjax(){
       $.ajax({
         type: 'POST',
-        url: 'https://simple-mmo.com/api/quickuse',
+        url: window.location.origin + 'api/quickuse',
         data: {'_token': document.querySelector('[name="csrf-token"]').content},
         dataType: 'json',
         success: function (data) {
@@ -206,7 +206,7 @@ const getRequiredScripts = async (url) => {
 
 
     function useQuickItem(){
-      fetch('https://simple-mmo.com/api/quickuse', {
+      fetch(window.location.origin + '/api/quickuse', {
         'method': 'POST',
         body: new URLSearchParams("_token="+document.querySelector('[name="csrf-token"]').content)
       })
@@ -241,7 +241,7 @@ const getRequiredScripts = async (url) => {
 
 const getRequiredScriptsAfter = async (url) => {
   var script = "";
-  if(url.includes('https://simple-mmo.com/')){
+  if(url.includes('simple-mmo.com/')){
     script += `
     function app(){
       if(!this||this==window)return new app;

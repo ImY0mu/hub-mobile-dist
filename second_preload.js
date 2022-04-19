@@ -70,7 +70,7 @@ window.addEventListener('load', function () {
 
 const getRequiredScripts = async (url) => {
   var script = "";
-  if(url.includes('https://simple-mmo.com/')){
+  if(url.includes('simple-mmo.com/')){
     script += `
     function changeScrollBar(){
       var styles = "";
@@ -157,12 +157,12 @@ const getRequiredScripts = async (url) => {
   }
 
   //Use Item keybind config
-  if(url == 'https://simple-mmo.com/travel' || url.includes('https://simple-mmo.com/npcs/attack/')){ //where to apply
+  if(url == 'simple-mmo.com/travel' || url.includes('simple-mmo.com/npcs/attack/')){ //where to apply
     script += `
     function useQuickItemAjax(){
       $.ajax({
         type: 'POST',
-        url: 'https://simple-mmo.com/api/quickuse',
+        url: window.location.origin + '/api/quickuse',
         data: {'_token': document.querySelector('[name="csrf-token"]').content},
         dataType: 'json',
         success: function (data) {
@@ -185,7 +185,7 @@ const getRequiredScripts = async (url) => {
 
 
     function useQuickItem(){
-      fetch('https://simple-mmo.com/api/quickuse', {
+      fetch(window.location.origin + '/api/quickuse', {
         'method': 'POST',
         body: new URLSearchParams("_token="+document.querySelector('[name="csrf-token"]').content)
       })
@@ -217,7 +217,7 @@ const getRequiredScripts = async (url) => {
 
   }
 
-  if(url.includes('https://simple-mmo.com/travel')){
+  if(url.includes('simple-mmo.com/travel')){
     script += `
       console.log('Travel opened in step mode.');
       var button = document.querySelector('#primaryStepButton');
@@ -238,7 +238,7 @@ const getRequiredScripts = async (url) => {
     `;
   }
 
-  if(url.includes('https://simple-mmo.com/inventory')){ // inventory collect stuff
+  if(url.includes('simple-mmo.com/inventory')){ // inventory collect stuff
     script += `
     var names = [];
     function showCollectionBtn(){
@@ -275,12 +275,12 @@ const getRequiredScripts = async (url) => {
     `;
   }
 
-  if(url == 'https://simple-mmo.com/guilds/view/474'){ // add supporter tag to guild
+  if(url == 'simple-mmo.com/guilds/view/474'){ // add supporter tag to guild
     var icon = 'http://localhost:8081/patreon/star.png';
     //document.querySelector('.container-two .max-w-7xl.mx-auto .text-center').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 mt-1 text-indigo-800"><img class="w-4 h-4 mr-1" src="' + icon + '" /><span class="mt-0.5">Patreon Supporters</span></span></div>');
   }
 
-  if(url.includes('https://simple-mmo.com/temple')){
+  if(url.includes('simple-mmo.com/temple')){
     script += `
     function templeTimer(){
       console.log('called function');
@@ -334,7 +334,7 @@ const getRequiredScripts = async (url) => {
       isPatreon();
     `;
 
-    if(url == 'https://simple-mmo.com/user/view/5944'){
+    if(url == 'simple-mmo.com/user/view/5944'){
       script += `
       
 
@@ -354,7 +354,7 @@ const getRequiredScripts = async (url) => {
 
 const getRequiredScriptsAfter = async (url) => {
   var script = "";
-  if(url.includes('https://simple-mmo.com/')){
+  if(url.includes('simple-mmo.com/')){
     script += `
     //eval(update_chat.toString().replace('app.openLink(', 'viewUser('));
     function ok(){if(!this||this==window)return new ok;var o=function(){return"thanks for calling!"};return o.__proto__=ok.prototype,o.constructor=ok,o}ok.prototype={close:function(){requiredFunction();swal.close();},__proto__:Function.prototype},ok=new ok;
@@ -371,7 +371,7 @@ const getRequiredScriptsAfter = async (url) => {
   `;
   }
 
-  if(url.includes('https://simple-mmo.com/item/customise/')){
+  if(url.includes('simple-mmo.com/item/customise/')){
     script += `
       try{
         eval(changeSprite.toString().replace(' $("#change-sprite-warning").show();', "document.querySelector('#change-sprite-warning').style.display = '';"));
@@ -393,7 +393,7 @@ const getRequiredScriptsAfter = async (url) => {
     `;
   }
 
-  if(url.includes('https://simple-mmo.com/temple')){
+  if(url.includes('simple-mmo.com/temple')){
     script += `
     try{
       eval(worshipGod.toString()
