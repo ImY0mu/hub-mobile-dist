@@ -217,7 +217,7 @@ const getRequiredScripts = async (url) => {
 
   }
 
-  if(url.includes('simple-mmo.com/travel')){
+  if(url.includes('https://simple-mmo.com/travel')){
     script += `
       console.log('Travel opened in step mode.');
       var button = document.querySelector('#primaryStepButton');
@@ -233,8 +233,25 @@ const getRequiredScripts = async (url) => {
         }
         window.postMessage(item);
       }
+    `;
+  }
 
+  if(url.includes('https://beta.simple-mmo.com/travel')){
+    script += `
+      console.log('Travel opened in step mode.');
+      var button = document.querySelector('#loadingBarContainer').nextElementSibling;
 
+      button.addEventListener('click', (e) => {
+        console.log(e);
+        countTheStep();
+      })
+
+      function countTheStep(){
+        var item = {
+          type: "stepTaken",
+        }
+        window.postMessage(item);
+      }
     `;
   }
 
