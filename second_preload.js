@@ -217,36 +217,29 @@ const getRequiredScripts = async (url) => {
 
   }
 
-  if(url.includes('https://simple-mmo.com/travel')){
+  if(url.includes('simple-mmo.com/travel')){
     script += `
       console.log('Travel opened in step mode.');
-      var button = document.querySelector('#primaryStepButton');
-
-      button.addEventListener('click', (e) => {
-        console.log(e);
-        countTheStep();
-      })
-
-      function countTheStep(){
-        var item = {
-          type: "stepTaken",
-        }
-        window.postMessage(item);
+      
+      try{
+        document.querySelector('#primaryStepButton').addEventListener('click', (e) => {
+          countTheStep();
+        })
       }
-    `;
-  }
+      catch(e){
+        document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();"
+      }
 
-  if(url.includes('https://beta.simple-mmo.com/travel')){
-    script += `
-      console.log('Travel opened in step mode.');
-      var button = document.querySelector('#loadingBarContainer').nextElementSibling;
-
-      button.addEventListener('click', (e) => {
-        console.log(e);
-        countTheStep();
-      })
+      try{
+        anime.suspendWhenDocumentHidden = false;
+        console.log('Fixing new travel');
+      }
+      catch(e){
+        console.log('Not beta stepping bruh');
+      }
 
       function countTheStep(){
+        console.log('called');
         var item = {
           type: "stepTaken",
         }

@@ -176,6 +176,19 @@ const getRequiredScripts = async (url) => {
 
     `;
   }
+  
+  if(url.includes('simple-mmo.com/travel')){
+    script += `
+      try{
+        anime.suspendWhenDocumentHidden = false;
+        console.log('Fixing new travel');
+      }
+      catch(e){
+        console.log('Not beta stepping bruh');
+      }
+    `;
+  }
+  
 
   //Use Item keybind config
   if(url == 'simple-mmo.com/travel' || url.includes('simple-mmo.com/npcs/attack/')){ //where to apply
