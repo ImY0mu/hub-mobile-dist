@@ -1,6 +1,15 @@
 {
   "notes": [
     {
+      "title": "Changes",
+      "version": "0.0.41",
+      "date": "2022-04-19T16:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["Changes to step mode settings"] },
+        { "title": "Bugs", "items": ["Fixed chat initial load bug"] }
+      ]
+    },
+    {
       "title": "Fixes",
       "version": "0.0.40",
       "date": "2022-04-19T16:40:18.175Z",
