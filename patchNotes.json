@@ -2,6 +2,14 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.43",
+      "date": "2022-04-21T20:40:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": ["Fixed pages that broke step mode"] }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.42",
       "date": "2022-04-21T18:40:18.175Z",
       "changes": [
