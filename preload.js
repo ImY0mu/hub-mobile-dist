@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data.type == "keybind"){
       sendToWindow('keybind', event.data.key)
     }
+    if(event.data.type == "updatePlayer"){
+      sendToWindow('updatePlayer')
+    }
   });
   
 
@@ -179,12 +182,40 @@ const getRequiredScripts = async (url) => {
   
   if(url.includes('simple-mmo.com/travel')){
     script += `
+
+      var stepCounter = 0;
+
+      try{
+        document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
+      }
+      catch(e){
+        console.log(e);
+      }
+
+
       try{
         anime.suspendWhenDocumentHidden = false;
         console.log('Fixing new travel');
       }
       catch(e){
-        console.log('Not beta stepping bruh');
+        console.log(e);
+      }
+
+      function countTheStep(){
+        stepCounter++;
+        if(stepCounter == 9){
+          stepCounter = 0;
+          console.log('called');
+          var item = {
+            type: "updatePlayer",
+          }
+          window.postMessage(item);
+        }
+
+        var item = {
+          type: "stepTaken",
+        }
+        window.postMessage(item);
       }
     `;
   }

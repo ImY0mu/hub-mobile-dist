@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data.type == "stepTaken"){
       sendToWindow('stepTaken', event.data.key)
     }
+    if(event.data.type == "updatePlayer"){
+      sendToWindow('updatePlayer')
+    }
   });
   //END OF LOAD
 })
@@ -156,6 +159,46 @@ const getRequiredScripts = async (url) => {
   `;
   }
 
+  if(url.includes('/attack/')){
+    script += `
+
+    var client_settings = JSON.parse(localStorage.settings);
+    
+    function changeBars(){
+      var style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = '.new_progress{width:100%;height:20px!important;border-radius:4px!important;background-image:linear-gradient(to bottom,rgba(255,255,255,.3),rgba(255,255,255,.05))!important; background-color: #831010 !important;}';
+      style.innerHTML += '.progress-moved{padding:4px!important;border-radius:4px!important;background:rgba(0,0,0,.25)!important;box-shadow:inset 0 1px 2px rgb(0 0 0 / 25%),0 1px rgb(255 255 255 / 8%)!important}';
+      style.innerHTML += '.apply_transition{transition:.4s linear!important;transition-property:width,background-color!important}';
+      document.getElementsByTagName('head')[0].appendChild(style);
+
+      document.querySelector('.character-container-new').style="gap:.5rem!important;padding:.5rem!important;"
+      document.querySelector('.playerHPBar').removeAttribute('class');
+      document.querySelector('.playerHPBar').style = "transition: 0s;";
+      document.querySelector('.npcHPBar').style = "transition: 0s;";
+
+      document.querySelector('.playerHPBar').setAttribute('id', 'playerHPBar');
+      document.querySelector('.playerHPBar').classList.add('new_progress');
+      document.querySelector('.npcHPBar').setAttribute('id', 'npcHPBar');
+      document.querySelector('.npcHPBar').classList.add('new_progress');
+
+      setTimeout(() => {
+        document.querySelector('#playerHPBar').classList.add('apply_transition');
+        document.querySelector('#npcHPBar').classList.add('apply_transition');
+      }, 25);
+
+      var hpBar = document.querySelector('#playerHPBar');
+      var npcHpBar = document.querySelector('#npcHPBar');
+
+    }
+
+    if(client_settings.mobile.ui_improvements){
+      changeBars();
+    }
+    
+    `;
+  }
+
   //Use Item keybind config
   if(url == 'simple-mmo.com/travel' || url.includes('simple-mmo.com/npcs/attack/')){ //where to apply
     script += `
@@ -220,14 +263,14 @@ const getRequiredScripts = async (url) => {
   if(url.includes('simple-mmo.com/travel')){
     script += `
       console.log('Travel opened in step mode.');
+
+      var stepCounter = 0;
       
       try{
-        document.querySelector('#primaryStepButton').addEventListener('click', (e) => {
-          countTheStep();
-        })
+        document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
       }
       catch(e){
-        document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();"
+        console.log(e);
       }
 
       try{
@@ -235,11 +278,20 @@ const getRequiredScripts = async (url) => {
         console.log('Fixing new travel');
       }
       catch(e){
-        console.log('Not beta stepping bruh');
+        console.log(e);
       }
 
       function countTheStep(){
-        console.log('called');
+        stepCounter++;
+        if(stepCounter == 9){
+          stepCounter = 0;
+          console.log('called');
+          var item = {
+            type: "updatePlayer",
+          }
+          window.postMessage(item);
+        }
+
         var item = {
           type: "stepTaken",
         }

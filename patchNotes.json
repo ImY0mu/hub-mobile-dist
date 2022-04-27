@@ -2,6 +2,34 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.44",
+      "date": "2022-04-27T20:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Added optional redesigned HP bars in combat",
+            "Redesigned Keybinds settings",
+            "Changed icon of step mode",
+            "Player information gets updated every 10 steps"
+          ] 
+        },
+        { "title": "QoL", "items": 
+          [
+            "Fixed behaviour of discussion board posts -> contains the corrent submenu instead of profile menu",
+            "Fixed titles at pages: Collections, Discussion Board Posts",
+            "Fixed behaviour of feed page -> next page no longer opens new webview",
+            "Fixed behaviour of trade related pages",
+            "Fixed top bar type at pages: Gift Diamonds, Send Item, Send Gold, Mahol's hut, Player Market -> now contain the chat and profile popup buttons",
+            "Fixed behaviour of market page -> searching no longer creates new webview",
+            "Fixed behaviour of pages: Chests, Buy keys, Buy more power points, Guild settings -> now open in new window",
+            "Fixed behaviour of db page suggestions submenu behaviour when ordering -> now correctly highlights selected tab",
+            "Disabled pages: Logout, Earn by ads"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.43",
       "date": "2022-04-21T20:40:18.175Z",
       "changes": [
