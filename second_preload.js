@@ -173,8 +173,11 @@ const getRequiredScripts = async (url) => {
       document.getElementsByTagName('head')[0].appendChild(style);
 
       document.querySelector('.character-container-new').style="gap:.5rem!important;padding:.5rem!important;"
+      var width = document.querySelector('.playerHPBar').style.width;
+      document.querySelector('.playerHPBar').style.width = "100%";
       document.querySelector('.playerHPBar').removeAttribute('class');
       document.querySelector('.playerHPBar').style = "transition: 0s;";
+      document.querySelector('.playerHPBar').style.width = width;
       document.querySelector('.npcHPBar').style = "transition: 0s;";
 
       document.querySelector('.playerHPBar').setAttribute('id', 'playerHPBar');
@@ -187,8 +190,6 @@ const getRequiredScripts = async (url) => {
         document.querySelector('#npcHPBar').classList.add('apply_transition');
       }, 25);
 
-      var hpBar = document.querySelector('#playerHPBar');
-      var npcHpBar = document.querySelector('#npcHPBar');
 
     }
 
