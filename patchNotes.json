@@ -2,6 +2,14 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.46",
+      "date": "2022-05-12T20:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": ["UI improvements now fix world boss hp bar position in combat", "UI improvements now fix hp overflowing the hp bar in combat"] }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.45",
       "date": "2022-05-10T20:40:18.175Z",
       "changes": [

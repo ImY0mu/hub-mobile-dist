@@ -175,6 +175,7 @@ const getRequiredScripts = async (url) => {
       document.querySelector('.character-container-new').style="gap:.5rem!important;padding:.5rem!important;"
       var width = document.querySelector('.playerHPBar').style.width;
       document.querySelector('.playerHPBar').style.width = "100%";
+      document.querySelector('.playerHPBar').style.overflow = "hidden";
       document.querySelector('.playerHPBar').removeAttribute('class');
       document.querySelector('.playerHPBar').style = "transition: 0s;";
       document.querySelector('.playerHPBar').style.width = width;
@@ -184,6 +185,7 @@ const getRequiredScripts = async (url) => {
       document.querySelector('.playerHPBar').classList.add('new_progress');
       document.querySelector('.npcHPBar').setAttribute('id', 'npcHPBar');
       document.querySelector('.npcHPBar').classList.add('new_progress');
+      document.querySelector('.npcHPBar').parentElement.style.overflow = "hidden";
 
       setTimeout(() => {
         document.querySelector('#playerHPBar').classList.add('apply_transition');
@@ -195,6 +197,22 @@ const getRequiredScripts = async (url) => {
 
     if(client_settings.mobile.ui_improvements){
       changeBars();
+    }
+    
+    `;
+  }
+
+  if(url.includes('/worldboss/attack/')){
+    script += `
+
+    var client_settings = JSON.parse(localStorage.settings);
+    
+    function fixHeight(){
+      document.querySelectorAll('.char-inner-container')[0].style.height = '80px';
+    }
+
+    if(client_settings.mobile.ui_improvements){
+      fixHeight();
     }
     
     `;
