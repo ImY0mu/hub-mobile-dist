@@ -3,7 +3,7 @@
     {
       "title": "Changes",
       "version": "0.0.48",
-      "date": "2022-05-13T22:40:18.175Z",
+      "date": "2022-05-13T12:40:18.175Z",
       "changes": [
         { "title": "Bugs", "items": 
           [
@@ -17,7 +17,7 @@
     {
       "title": "Changes",
       "version": "0.0.47",
-      "date": "2022-05-12T22:40:18.175Z",
+      "date": "2022-05-12T11:40:18.175Z",
       "changes": [
         { "title": "General", "items": 
           [
@@ -30,7 +30,7 @@
     {
       "title": "Changes",
       "version": "0.0.46",
-      "date": "2022-05-12T20:40:18.175Z",
+      "date": "2022-05-12T10:40:18.175Z",
       "changes": [
         { "title": "General", "items": ["UI improvements now fix world boss hp bar position in combat", "UI improvements now fix hp overflowing the hp bar in combat"] }
       ]
