@@ -2,6 +2,20 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.48",
+      "date": "2022-05-13T22:40:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed view comment in notifications breaking profile page",
+            "Fixed primary inventory tab not being highlighted on inventory load",
+            "Fixed behaviour of guild member stats page -> now open in new window"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.47",
       "date": "2022-05-12T22:40:18.175Z",
       "changes": [
