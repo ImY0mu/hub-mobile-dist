@@ -179,7 +179,7 @@ const getRequiredScripts = async (url) => {
       document.querySelector('.playerHPBar').removeAttribute('class');
       document.querySelector('.playerHPBar').style = "transition: 0s;";
       document.querySelector('.playerHPBar').style.width = width;
-      document.querySelector('.npcHPBar').style = "transition: 0s;";
+      document.querySelector('.npcHPBar').style.transition = "0s";
 
       document.querySelector('.playerHPBar').setAttribute('id', 'playerHPBar');
       document.querySelector('.playerHPBar').classList.add('new_progress');

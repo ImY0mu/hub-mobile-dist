@@ -2,6 +2,23 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.49",
+      "date": "2022-05-13T12:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Preparations for client time backend"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed bug at UI improved HP bars"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.48",
       "date": "2022-05-13T12:40:18.175Z",
       "changes": [
