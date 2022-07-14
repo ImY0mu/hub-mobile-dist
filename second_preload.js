@@ -279,6 +279,47 @@ const getRequiredScripts = async (url) => {
 
   }
 
+  if(url.includes('simple-mmo.com/userlist/all')){
+    script += `
+    
+    var button = '<button type="button" onclick="if (!window.__cfRLUnblockHandlers) return false; showSearchId()" class="mb-2 w-full text-center justify-center inline-flex items-center px-2.5 py-3 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Visit player by ID</button>';
+    var searchForm = '<div style="display: none" id="search_id_content"><form onsubmit="formSubmitFunction(event)" id="id_search_form"><div class="row"><div><input type="text" class="app-input" minlength="1" id="player_id_input" placeholder="Player id..." name="id" /></div></div><button type="submit" class="app-btn  mt-2 mr-1 btn-success px-4 py-2">Visit</button><button type="button" class="app-btn btn-primary px-4 py-2" onclick="if (!window.__cfRLUnblockHandlers) return false; Swal.close();">Close</button></form></div>';
+
+
+    try{
+      document.querySelector('.bg-gray-100.min-h-screen-smmo .px-2.py-2 button').insertAdjacentHTML('afterEnd', button);
+    }
+    catch(e){
+      console.log(e);
+    }
+
+    try{
+      document.querySelector('main .container-two').insertAdjacentHTML('afterBegin', searchForm);
+    }
+    catch(e){
+      console.log(e);
+    }
+
+
+    function formSubmitFunction(e){
+      e.preventDefault();
+      var id = document.querySelectorAll('#player_id_input')[1].value;
+      var url = window.location.href.split('simple-mmo.com/')[0];
+      url += 'simple-mmo.com/user/view/' + id;
+      window.location.href = url;
+    }
+
+    function showSearchId(){
+      Swal.fire({
+        icon: 'info',
+        title: 'Visit player by ID',
+        html: document.getElementById("search_id_content").innerHTML,
+        showConfirmButton: false,
+      });
+    }
+    `;
+  }
+
   if(url.includes('simple-mmo.com/travel')){
     script += `
       console.log('Travel opened in step mode.');
@@ -387,6 +428,7 @@ const getRequiredScripts = async (url) => {
       }
       function isPatreon(){
         var patreons = JSON.parse(localStorage.patreon);
+        console.table(patreons);
         Object.keys(patreons).forEach(function (k) {
           if(patreons[k].user_id == userID) {
             console.log('In the list');

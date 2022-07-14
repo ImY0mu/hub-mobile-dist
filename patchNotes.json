@@ -2,8 +2,21 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.50",
+      "date": "2022-07-14T12:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Added keybind for quick player search access",
+            "Added new feature to the player search to visit profile by player's ID"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.49",
-      "date": "2022-05-17T12:40:18.175Z",
+      "date": "2022-05-13T12:40:18.175Z",
       "changes": [
         { "title": "General", "items": 
           [
