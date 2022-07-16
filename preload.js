@@ -309,6 +309,7 @@ const getRequiredScripts = async (url) => {
 
     function countTheStep(){
       stepCounter++;
+      partyCheck();
       if(stepCounter == 9){
         stepCounter = 0;
         console.log('called');
@@ -316,7 +317,7 @@ const getRequiredScripts = async (url) => {
           type: "updatePlayer",
         }
         window.postMessage(item);
-        partyCheck();
+        
       }
 
       var item = {

@@ -490,6 +490,7 @@ const getRequiredScripts = async (url) => {
 
       function countTheStep(){
         stepCounter++;
+        partyCheck();
         if(stepCounter == 9){
           stepCounter = 0;
           console.log('called');
