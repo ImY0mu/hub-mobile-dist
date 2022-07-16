@@ -9,6 +9,11 @@
           [
             "Added support for Discord Rich Presence"
           ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Take a Step button bug after quickly pressing the buttons Gather material and Take a Step"
+          ] 
         }
       ]
     },

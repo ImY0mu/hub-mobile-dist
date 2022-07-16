@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   window.addEventListener("message", function(event) {
     console.log(event.data);
+    if(event.data.type == "openPage"){
+      sendToWindow('openPage', event.data.url)
+    }
     if(event.data == "scrollUp"){
         scrollUp();
     }
@@ -234,6 +237,60 @@ const getRequiredScripts = async (url) => {
     script += `
 
     var stepCounter = 0;
+
+
+    function openPage(url){
+      console.log(url);
+
+      var pageUrl = window.location.href.split('simple-mmo.com')[0];
+
+      var item = {
+        type: "openPage",
+        url:  pageUrl + 'simple-mmo.com' + url
+      }
+      window.postMessage(item);
+    }
+
+    function stepMutator(){
+      // Select the node that will be observed for mutations
+      const targetNode = document.querySelector('[x-html="travel.text"]');
+
+      // Options for the observer (which mutations to observe)
+      const config = { attributes: false, childList: true, subtree: true };
+
+      // Callback function to execute when mutations are observed
+      const callback = function(mutationList, observer) {
+          // Use traditional 'for loops' for IE 11
+          for(const mutation of mutationList) {
+              if (mutation.type === 'childList') {
+                  console.log('A child node has been added or removed.');
+                  if(mutation.addedNodes[mutation.addedNodes.length-1].nodeName == 'DIV'){
+                    console.error('IT has a BUTTON!');
+                    var button = mutation.addedNodes[mutation.addedNodes.length-1].querySelector('button');
+
+                    try{
+                      button.setAttribute('x-on:click', 'clicked=true;' + button.getAttribute('x-on:click').split(';')[1].replace('document.location=', 'openPage(').replace("?new_page=true'", "?new_page=true')"));
+                    }
+                    catch(e){
+                      console.log(e);
+                    }
+                    
+                  }
+              }
+              else if (mutation.type === 'attributes') {
+                  console.log('The ' + mutation.attributeName + ' attribute was modified.');
+              }
+          }
+      };
+
+      // Create an observer instance linked to the callback function
+      const observer = new MutationObserver(callback);
+
+      // Start observing the target node for configured mutations
+      observer.observe(targetNode, config);
+    }
+
+    stepMutator();
       
     try{
       document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
@@ -259,14 +316,13 @@ const getRequiredScripts = async (url) => {
           type: "updatePlayer",
         }
         window.postMessage(item);
+        partyCheck();
       }
 
       var item = {
         type: "stepTaken",
       }
       window.postMessage(item);
-
-      partyCheck();
     }
 
     function partyCheck(){
