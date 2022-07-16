@@ -39,6 +39,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data == "refreshPage"){
       refreshPage();
     } 
+    if(event.data.type == "updateDiscordActivity"){
+      console.log(event.data);
+      sendToWindow('updateDiscordActivity', event.data)
+    }
+    if(event.data.type == "stepTaken"){
+      sendToWindow('stepTaken', event.data.key)
+    }
     if(event.data.type == "openPageWithSubMenu"){
       sendToWindow('openPageWithSubMenu', event.data)
     }
@@ -226,40 +233,88 @@ const getRequiredScripts = async (url) => {
   if(url.includes('simple-mmo.com/travel')){
     script += `
 
-      var stepCounter = 0;
+    var stepCounter = 0;
+      
+    try{
+      document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
+    }
+    catch(e){
+      console.log(e);
+    }
 
-      try{
-        document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
-      }
-      catch(e){
-        console.log(e);
-      }
+    try{
+      anime.suspendWhenDocumentHidden = false;
+      console.log('Fixing new travel');
+    }
+    catch(e){
+      console.log(e);
+    }
 
-
-      try{
-        anime.suspendWhenDocumentHidden = false;
-        console.log('Fixing new travel');
-      }
-      catch(e){
-        console.log(e);
-      }
-
-      function countTheStep(){
-        stepCounter++;
-        if(stepCounter == 9){
-          stepCounter = 0;
-          console.log('called');
-          var item = {
-            type: "updatePlayer",
-          }
-          window.postMessage(item);
-        }
-
+    function countTheStep(){
+      stepCounter++;
+      if(stepCounter == 9){
+        stepCounter = 0;
+        console.log('called');
         var item = {
-          type: "stepTaken",
+          type: "updatePlayer",
         }
         window.postMessage(item);
       }
+
+      var item = {
+        type: "stepTaken",
+      }
+      window.postMessage(item);
+
+      partyCheck();
+    }
+
+    function partyCheck(){
+      if(Object.keys(document.getElementById('complete-travel-container')._x_dataStack[0].party).length > 0){
+        var item = {
+          type: "updateDiscordActivity",
+          data: {
+            state: 'Stepping in a Party [' + Object.keys(document.getElementById('complete-travel-container')._x_dataStack[0].party).length + '/4]',
+          }
+        }
+        window.postMessage(item);
+      }
+      else{
+        var item = {
+          type: "updateDiscordActivity",
+          data: {
+            state: 'Stepping',
+          }
+        }
+        window.postMessage(item);
+      }
+    }
+
+    partyCheck();
+    `;
+  }
+
+  if(url.includes('discussionboards/menu')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Discussion Boards',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('battle/menu')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Preparing for a Battle',
+      }
+    }
+    window.postMessage(item);
     `;
   }
   

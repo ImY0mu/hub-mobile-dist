@@ -40,6 +40,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data.type == "openPageWithSubMenu"){
       sendToWindow('openPageWithSubMenu', event.data)
     }
+    if(event.data.type == "updateDiscordActivity"){
+      console.log(event.data);
+      sendToWindow('updateDiscordActivity', event.data)
+    }
     if(event.data.type == "keybind"){
       sendToWindow('keybind', event.data.key)
     }
@@ -157,6 +161,92 @@ const getRequiredScripts = async (url) => {
       console.log(error);
     }
   `;
+  }
+
+  if(url.includes('quests/view/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Working on a Quest',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('discussionboards/menu')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Discussion Boards',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('battle/menu')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Preparing for a Battle',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('/inventory')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing an Inventory',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('crafting/material/gather/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Gathering ' + document.title,
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+
+
+  if(url.includes('npcs/attack/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Slaying an NPC',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('user/attack/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Attacking a Player',
+      }
+    }
+    window.postMessage(item);
+    `;
   }
 
   if(url.includes('/attack/')){
@@ -356,8 +446,34 @@ const getRequiredScripts = async (url) => {
           type: "stepTaken",
         }
         window.postMessage(item);
+        partyCheck();
       }
+
+
+      function partyCheck(){
+        if(Object.keys(document.getElementById('complete-travel-container')._x_dataStack[0].party).length > 0){
+          var item = {
+            type: "updateDiscordActivity",
+            data: {
+              state: 'Stepping in a Party [' + Object.keys(document.getElementById('complete-travel-container')._x_dataStack[0].party).length + '/4]',
+            }
+          }
+          window.postMessage(item);
+        }
+        else{
+          var item = {
+            type: "updateDiscordActivity",
+            data: {
+              state: 'Stepping',
+            }
+          }
+          window.postMessage(item);
+        }
+      }
+
+      partyCheck();
     `;
+    
   }
 
   if(url.includes('simple-mmo.com/inventory')){ // inventory collect stuff
