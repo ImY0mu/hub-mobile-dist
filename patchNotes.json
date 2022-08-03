@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.53-hotfix",
+      "date": "2022-08-03T12:50:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed View Profile keybind (again)"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.52",
       "date": "2022-08-03T12:40:18.175Z",
       "changes": [
@@ -9,7 +21,11 @@
           [
             "Improved Collect Button keybind - automatically sets the collect amount to max and hides the item popup behind",
             "Added Remove Button keybind for storage",
-            "Added new discord rich presence events",
+            "Added new discord rich presence events"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
             "Fixed View Profile keybind"
           ] 
         }
