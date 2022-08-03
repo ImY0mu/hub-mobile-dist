@@ -2,6 +2,21 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.52",
+      "date": "2022-08-03T12:40:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Improved Collect Button keybind - automatically sets the collect amount to max and hides the item popup behind",
+            "Added Remove Button keybind for storage",
+            "Added new discord rich presence events",
+            "Fixed View Profile keybind"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.51",
       "date": "2022-07-16T12:40:18.175Z",
       "changes": [

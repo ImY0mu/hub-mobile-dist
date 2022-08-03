@@ -363,6 +363,43 @@ const getRequiredScripts = async (url) => {
     `;
   }
 
+  if(url.includes('quests/viewall')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Quests',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('obs/viewall')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Jobs',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+
+  if(url.includes('/crafting/menu')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Crafting Recipes',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
   if(url.includes('battle/menu')){
     script += `
     var item = {

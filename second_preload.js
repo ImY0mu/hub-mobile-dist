@@ -166,12 +166,37 @@ const getRequiredScripts = async (url) => {
   `;
   }
 
+  if(url.includes('user/view/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Viewing Profile',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+
   if(url.includes('quests/view/')){
     script += `
     var item = {
       type: "updateDiscordActivity",
       data: {
         state: 'Working on a Quest',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('/collection/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Collection',
       }
     }
     window.postMessage(item);
@@ -202,12 +227,73 @@ const getRequiredScripts = async (url) => {
     `;
   }
 
-  if(url.includes('/inventory')){
+  if(url.includes('/inventory/items')){
     script += `
     var item = {
       type: "updateDiscordActivity",
       data: {
-        state: 'Browsing an Inventory',
+        state: 'Browsing Inventory',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+
+  if(url.includes('/inventory/storage')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Storage',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('/inventory/showcase')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Showcase',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('/tasks/viewall')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing Tasks',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('/worldboss/all')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Browsing World Bosses',
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('/worldboss/view/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Preparing for a World Boss',
       }
     }
     window.postMessage(item);
@@ -220,6 +306,18 @@ const getRequiredScripts = async (url) => {
       type: "updateDiscordActivity",
       data: {
         state: 'Gathering ' + document.title,
+      }
+    }
+    window.postMessage(item);
+    `;
+  }
+
+  if(url.includes('crafting/view/')){
+    script += `
+    var item = {
+      type: "updateDiscordActivity",
+      data: {
+        state: 'Crafting ' + document.title,
       }
     }
     window.postMessage(item);
@@ -534,16 +632,96 @@ const getRequiredScripts = async (url) => {
     
   }
 
-  if(url.includes('simple-mmo.com/inventory')){ // inventory collect stuff
+  if(url.includes('simple-mmo.com/inventory/storage')){ // inventory collect stuff
     script += `
     var names = [];
-    function showCollectionBtn(){
+
+    function hidePopup(){
+      setTimeout(() => {
+        document.querySelector(".bg-gray-100.min-h-screen-smmo")._x_dataStack[0].show_popup = false;
+      }, 25);
+    }
+
+    function showRemoveBtn(){
       var list = document.querySelectorAll('.flex.items-center.cursor-pointer');
-      names = []
+      names = [];
       try{
         for(let i = 0; i < list.length; i++){
           var element = list[i];
-          var name = element.querySelector('.truncate .ml-2.truncate .truncate span').innerText;
+          var name = element.querySelectorAll('.truncate .truncate span')[1].innerText;
+          var src = element.querySelector('img').src;
+          var type = element.querySelector('.text-gray-500.font-semibold.mr-4.text-xs.flex-grow.text-right.whitespace-nowrap').innerText;
+          names.push(name);
+          var quantity = element.querySelectorAll('.truncate .truncate span')[0].innerText;
+          var id = element.getAttribute("id").split("item-")[1].split("-block")[0];
+          console.log(id, JSON.stringify(quantity), getName(i), src)
+          if(document.querySelectorAll("#collect-btn-" + id).length == 0){
+            element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="removeFromStorage(' + id + ', \`' + getName(i) + '\`, \`' + src + '\`, \' + quantity + '\);  hidePopup();" class="px-2 py-1 bg-red-600 rounded text-xs hover:bg-red-800 mr-2">Remove</button>');
+          }
+        }
+      }
+      catch(e){
+        console.error(e);
+      }
+    }
+
+    function getName(index){
+      return names[index];
+    }
+    `;
+  }
+
+  if(url.includes('simple-mmo.com/inventory/items')){ // inventory collect stuff
+    script += `
+    var names = [];
+
+
+    function hidePopup(){
+      setTimeout(() => {
+        document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].show_popup = false;
+      }, 25);
+    }
+
+    function showUseBtn(){
+      var list = document.querySelectorAll('.flex.items-center.cursor-pointer');
+      names = [];
+      try{
+        for(let i = 0; i < list.length; i++){
+          var element = list[i];
+          var name = element.querySelectorAll('.truncate .ml-2.truncate .truncate span')[1].innerText;
+          var src = element.querySelector('img').src;
+          var type = element.querySelector('.text-gray-500.font-semibold.mr-4.text-xs.flex-grow.text-right.whitespace-nowrap').innerText;
+          names.push(name);
+          var quantity = element.querySelector('.truncate .ml-2.truncate .truncate').innerText.split(' ')[0].split('x')[1];
+          var id = element.getAttribute("id").split("item-")[1].split("-block")[0];
+          console.log(id, JSON.stringify(quantity), getName(i), src)
+          if(document.querySelectorAll("#collect-btn-" + id).length == 0){
+            if(type == 'Food'){
+              element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="collection_collectables(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
+            else if(type == 'Other'){
+              //element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
+            else{
+              //element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
+          }
+        }
+      }
+      catch(e){
+        console.error(e);
+      }
+    }
+
+
+
+    function showCollectionBtn(){
+      var list = document.querySelectorAll('.flex.items-center.cursor-pointer');
+      names = [];
+      try{
+        for(let i = 0; i < list.length; i++){
+          var element = list[i];
+          var name = element.querySelectorAll('.truncate .ml-2.truncate .truncate span')[1].innerText;
           var src = element.querySelector('img').src;
           var type = element.querySelector('.text-gray-500.font-semibold.mr-4.text-xs.flex-grow.text-right.whitespace-nowrap').innerText;
           names.push(name);
@@ -552,10 +730,13 @@ const getRequiredScripts = async (url) => {
           console.log(id, JSON.stringify(quantity), getName(i), src)
           if(document.querySelectorAll("#collect-btn-" + id).length == 0){
             if(type == 'Collectable'){
-              element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="collection_collectables(' + id + ', \`' + quantity + '\`, \`' + getName(i) + '\`, \`' + src + '\`)" class="p-2 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+              element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="collection_collectables(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
+            else if(type == 'Other'){
+              //element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
             }
             else{
-              element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \`' + quantity + '\`, \`' + getName(i) + '\`, \`' + src + '\`)" class="p-2 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+              element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
             }
           }
         }
@@ -676,6 +857,20 @@ const getRequiredScriptsAfter = async (url) => {
       catch(e){
         console.log(e);
       }
+    `;
+  }
+
+  if(url.includes('simple-mmo.com/inventory/items')){ // inventory collect stuff
+    script += `
+    eval(addItemCollection.toString().replace("inputValue: '1',", "inputValue: qty,"));
+    
+    `;
+  }
+
+  if(url.includes('simple-mmo.com/inventory/storage')){ // inventory collect stuff
+    script += `
+    eval(removeFromStorage.toString().replace("inputValue: '1',", "inputValue: max_amount,"));
+    eval(removeFromStorage.toString().replace("atob(name)", "name"));
     `;
   }
 
