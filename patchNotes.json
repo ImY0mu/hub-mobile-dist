@@ -2,6 +2,19 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.54-hotfix",
+      "date": "2022-08-04T12:50:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Collection Button at Collectibles",
+            "Fixed View Profile keybind (again)"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.53-hotfix",
       "date": "2022-08-03T12:50:18.175Z",
       "changes": [

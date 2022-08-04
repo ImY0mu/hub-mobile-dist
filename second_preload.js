@@ -863,7 +863,7 @@ const getRequiredScriptsAfter = async (url) => {
   if(url.includes('simple-mmo.com/inventory/items')){ // inventory collect stuff
     script += `
     eval(addItemCollection.toString().replace("inputValue: '1',", "inputValue: qty,"));
-    
+    eval(collection_collectables.toString().replace("inputValue: '1',", "inputValue: qty,"));
     `;
   }
 
