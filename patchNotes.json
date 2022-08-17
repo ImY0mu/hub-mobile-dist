@@ -7,7 +7,8 @@
       "changes": [
         { "title": "General", "items": 
           [
-            "Changes to code structure"
+            "Changes to code structure",
+            "Removed Update Player call whenever window was closed by pressing OK"
           ] 
         },
         { "title": "Bugs", "items": 
