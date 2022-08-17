@@ -99,7 +99,7 @@ const getRequiredScripts = async (url) => {
 
     function requiredFunction(){
       window.postMessage('closeWindow');
-      window.postMessage('updatePlayer');
+      //window.postMessage('updatePlayer');
     }
 
 
@@ -862,8 +862,8 @@ const getRequiredScriptsAfter = async (url) => {
 
   if(url.includes('simple-mmo.com/inventory/items')){ // inventory collect stuff
     script += `
-    eval(addItemCollection.toString().replace("inputValue: '1',", "inputValue: qty,"));
-    eval(collection_collectables.toString().replace("inputValue: '1',", "inputValue: qty,"));
+    eval(addItemCollection.toString().replace("title: name,", "title: name, inputValue: qty,"));
+    eval(collection_collectables.toString().replace("title: name,", "title: name, inputValue: qty,"));
     `;
   }
 

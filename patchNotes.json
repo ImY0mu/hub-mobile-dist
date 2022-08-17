@@ -2,6 +2,24 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.55",
+      "date": "2022-08-17T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Changes to code structure"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Inventory Collect keybind due to recent changes",
+            "Attempt to fix no level up while slaying NPCs bug"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.54-hotfix",
       "date": "2022-08-04T12:50:18.175Z",
       "changes": [
