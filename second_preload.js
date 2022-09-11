@@ -62,9 +62,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 window.addEventListener('load', function () {
-  if(isReady == false) return console.log("Page was already loaded once before.");
-  isReady = false;
-  console.log("Page loaded.");
   getRequiredScriptsAfter(window.location.href.toString())
   .then(data = (data) => {
     var script = document.createElement('script'); 
