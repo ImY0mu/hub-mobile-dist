@@ -30,30 +30,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data == "closeWindow"){
       sendToWindow('closeWindow')
     }
-    if(event.data.type == "openPage"){
+    if(event.data.name == "openPage"){
       sendToWindow('openPage', event.data.url)
     }
     if(event.data == "updatePlayer"){
       sendToWindow('updatePlayer')
     }
-    if(event.data == "templeTimer"){
+    if(event.data.name == "create_timer"){
       console.log('Started the timer!');
-      sendToWindow('templeTimer')
+      sendToWindow('create_timer', event.data);
     }
-    if(event.data.type == "openPageWithSubMenu"){
+    if(event.data.name == "openPageWithSubMenu"){
       sendToWindow('openPageWithSubMenu', event.data)
     }
-    if(event.data.type == "updateDiscordActivity"){
+    if(event.data.name == "updateDiscordActivity"){
       console.log(event.data);
       sendToWindow('updateDiscordActivity', event.data)
     }
-    if(event.data.type == "keybind"){
+    if(event.data.name == "keybind"){
       sendToWindow('keybind', event.data.key)
     }
-    if(event.data.type == "stepTaken"){
+    if(event.data.name == "stepTaken"){
       sendToWindow('stepTaken', event.data.key)
     }
-    if(event.data.type == "updatePlayer"){
+    if(event.data.name == "updatePlayer"){
       sendToWindow('updatePlayer')
     }
   });
@@ -62,6 +62,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 window.addEventListener('load', function () {
+  if(isReady == false) return console.log("Page was already loaded once before.");
+  isReady = false;
+  console.log("Page loaded.");
   getRequiredScriptsAfter(window.location.href.toString())
   .then(data = (data) => {
     var script = document.createElement('script'); 
@@ -113,7 +116,7 @@ const getRequiredScripts = async (url) => {
       }
       
       let item = {
-        type: "openPageWithSubMenu", 
+        name: "openPageWithSubMenu", 
         title: title, menu: menu
       }; 
       window.postMessage(item);
@@ -122,7 +125,7 @@ const getRequiredScripts = async (url) => {
 
     function keybind(key){
       var item = {
-        type: "keybind",
+        name: "keybind",
         key: key
       }
       window.postMessage(item);
@@ -169,7 +172,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('user/view/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Viewing Profile',
       }
@@ -182,7 +185,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('quests/view/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Working on a Quest',
       }
@@ -194,7 +197,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('/collection/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Browsing Collection',
       }
@@ -206,7 +209,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('discussionboards/menu')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Browsing Discussion Boards',
       }
@@ -218,7 +221,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('battle/menu')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Preparing for a Battle',
       }
@@ -230,7 +233,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('/inventory/items')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Browsing Inventory',
       }
@@ -243,7 +246,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('/inventory/storage')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Browsing Storage',
       }
@@ -255,7 +258,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('/inventory/showcase')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Browsing Showcase',
       }
@@ -267,7 +270,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('/tasks/viewall')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Browsing Tasks',
       }
@@ -279,7 +282,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('/worldboss/all')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Browsing World Bosses',
       }
@@ -291,7 +294,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('/worldboss/view/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Preparing for a World Boss',
       }
@@ -303,7 +306,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('crafting/material/gather/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Gathering ' + document.title,
       }
@@ -315,7 +318,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('crafting/view/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Crafting ' + document.title,
       }
@@ -329,7 +332,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('npcs/attack/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Slaying an NPC',
       }
@@ -341,7 +344,7 @@ const getRequiredScripts = async (url) => {
   if(url.includes('user/attack/')){
     script += `
     var item = {
-      type: "updateDiscordActivity",
+      name: "updateDiscordActivity",
       data: {
         state: 'Attacking a Player',
       }
@@ -517,6 +520,68 @@ const getRequiredScripts = async (url) => {
 
       var stepCounter = 0;
 
+      var potions = [];
+
+    var selected_potion = null;
+
+    function prepare_potions(){
+      var links = document.querySelector('[x-show="potions_dropdown"]').querySelectorAll('a');
+      for (let i = 0; i < links.length; i++) {
+          var text = links[i].querySelectorAll('div')[2].innerText;
+          const potion = {
+              type: text.split('%')[1].split('for')[0].split('(')[0].trim(),
+              percentage: text.split('%')[0],
+              value: parseInt(text.split('(')[1].split('minutes')[0].trim()),
+          };
+          potions.push(potion);
+          var attribute = links[i].getAttribute("onclick");
+          links[i].setAttribute('onclick', attribute + '; selected_potion = ' + i + ';')
+      }
+    }
+
+    prepare_potions();
+
+    function start_potion(){
+      
+      let item = {
+        name: 'create_timer', 
+        data: {
+          type: 'potion',
+          name: potions[selected_potion].type,
+          percentage: potions[selected_potion].percentage,
+        },
+        value: potions[selected_potion].value,
+        end: null
+      }; 
+
+      window.postMessage(item);
+    }
+
+
+    function prepare_sprint(){
+      var button = document.querySelector('[x-show="!sprint.active"]').querySelectorAll('button')[2];
+      var attribute = button.getAttribute("x-on:click");
+      button.setAttribute("x-on:click", attribute + 'start_sprint();');
+    }
+
+    prepare_sprint();
+
+
+    function start_sprint(){
+      
+      let item = {
+        name: 'create_timer', 
+        data: {
+          type: 'sprint',
+          name: ''
+        },
+        value: document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes,
+        end: null
+      }; 
+
+      window.postMessage(item);
+    }
+
 
       function openPage(url){
         console.log(url);
@@ -524,7 +589,7 @@ const getRequiredScripts = async (url) => {
         var pageUrl = window.location.href.split('simple-mmo.com')[0];
   
         var item = {
-          type: "openPage",
+          name: "openPage",
           url:  pageUrl + 'simple-mmo.com' + url
         }
         window.postMessage(item);
@@ -593,14 +658,14 @@ const getRequiredScripts = async (url) => {
           stepCounter = 0;
           console.log('called');
           var item = {
-            type: "updatePlayer",
+            name: "updatePlayer",
           }
           window.postMessage(item);
           partyCheck();
         }
 
         var item = {
-          type: "stepTaken",
+          name: "stepTaken",
         }
         window.postMessage(item);
       }
@@ -609,7 +674,7 @@ const getRequiredScripts = async (url) => {
       function partyCheck(){
         if(Object.keys(document.getElementById('complete-travel-container')._x_dataStack[0].party).length > 0){
           var item = {
-            type: "updateDiscordActivity",
+            name: "updateDiscordActivity",
             data: {
               state: 'Stepping in a Party [' + Object.keys(document.getElementById('complete-travel-container')._x_dataStack[0].party).length + '/4]',
             }
@@ -618,7 +683,7 @@ const getRequiredScripts = async (url) => {
         }
         else{
           var item = {
-            type: "updateDiscordActivity",
+            name: "updateDiscordActivity",
             data: {
               state: 'Stepping',
             }
@@ -675,12 +740,27 @@ const getRequiredScripts = async (url) => {
     script += `
     var names = [];
 
+    // var item = null;
+    // function prepare_item(){
+    //   item = document.querySelector('main div.container-two div.max-w-7xl.mx-auto')._x_dataStack[0].item;
+    //   console.log(item);
+    // }
+
+    // function showItemPopup(){
+    //   console.log('called');
+    //   prepare_item();
+    // }
+
+    // showItemPopup();
+
 
     function hidePopup(){
       setTimeout(() => {
         document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].show_popup = false;
       }, 25);
     }
+
+    
 
     function showUseBtn(){
       var list = document.querySelectorAll('.flex.items-center.cursor-pointer');
@@ -759,9 +839,21 @@ const getRequiredScripts = async (url) => {
 
   if(url.includes('simple-mmo.com/temple')){
     script += `
-    function templeTimer(){
-      console.log('called function');
-      window.postMessage("templeTimer");
+    function templeTimer(god){
+      console.log(god.toLocaleLowerCase());
+
+      let item = {
+        name: 'create_timer', 
+        data: {
+          type: 'temple',
+          name: god.toLocaleLowerCase()
+        },
+        value: 60,
+        end: null
+      }; 
+
+      window.postMessage(item);
+      
     }
     `;
   }
@@ -862,15 +954,18 @@ const getRequiredScriptsAfter = async (url) => {
 
   if(url.includes('simple-mmo.com/inventory/items')){ // inventory collect stuff
     script += `
-    eval(addItemCollection.toString().replace("title: name,", "title: name, inputValue: qty,"));
-    eval(collection_collectables.toString().replace("title: name,", "title: name, inputValue: qty,"));
+    setTimeout(() => {
+      eval(addItemCollection.toString().replace("title: name,", "title: name, inputValue: qty,"));
+      eval(collection_collectables.toString().replace("title: name,", "title: name, inputValue: qty,"));
+    },100)
     `;
   }
 
   if(url.includes('simple-mmo.com/inventory/storage')){ // inventory collect stuff
     script += `
-    eval(removeFromStorage.toString().replace("inputValue: '1',", "inputValue: max_amount,"));
-    eval(removeFromStorage.toString().replace("atob(name)", "name"));
+    //removed
+    // eval(removeFromStorage.toString().replace("inputValue: '1',", "inputValue: max_amount,"));
+    // eval(removeFromStorage.toString().replace("atob(name)", "name"));
     `;
   }
 
@@ -889,7 +984,7 @@ const getRequiredScriptsAfter = async (url) => {
     script += `
     try{
       eval(worshipGod.toString()
-        .replace('if (result.value) {', 'if (result.value) { templeTimer();')
+        .replace('if (result.value) {', 'if (result.value) { templeTimer(god);')
       );
     }
     catch(e){

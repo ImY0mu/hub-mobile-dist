@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   .catch(error => console.log(error));
 
   window.addEventListener("message", function(event) {
-    console.log(event.data);
+    //console.log(event.data);
     if(event.data.type == "openPage"){
       sendToWindow('openPage', event.data.url)
     }
@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data == "refreshPage"){
       refreshPage();
     } 
+    if(event.data.name == "create_timer"){
+      console.log('Started the timer!');
+      sendToWindow('create_timer', event.data);
+    }
     if(event.data.type == "updateDiscordActivity"){
       console.log(event.data);
       sendToWindow('updateDiscordActivity', event.data)
@@ -238,6 +242,69 @@ const getRequiredScripts = async (url) => {
 
     var stepCounter = 0;
 
+    var potions = [];
+
+    var selected_potion = null;
+
+    function prepare_potions(){
+      var links = document.querySelector('[x-show="potions_dropdown"]').querySelectorAll('a');
+      for (let i = 0; i < links.length; i++) {
+          var text = links[i].querySelectorAll('div')[2].innerText;
+          const potion = {
+              type: text.split('%')[1].split('for')[0].split('(')[0].trim(),
+              percentage: text.split('%')[0],
+              value: parseInt(text.split('(')[1].split('minutes')[0].trim()),
+          };
+          potions.push(potion);
+          var attribute = links[i].getAttribute("onclick");
+          links[i].setAttribute('onclick', attribute + '; selected_potion = ' + i + ';')
+      }
+    }
+
+    prepare_potions();
+
+    function start_potion(){
+      
+      let item = {
+        name: 'create_timer', 
+        data: {
+          type: 'potion',
+          name: potions[selected_potion].type,
+          percentage: potions[selected_potion].percentage,
+        },
+        value: potions[selected_potion].value,
+        end: null
+      }; 
+
+      window.postMessage(item);
+    }
+
+
+    function prepare_sprint(){
+      var button = document.querySelector('[x-show="!sprint.active"]').querySelectorAll('button')[2];
+      var attribute = button.getAttribute("x-on:click");
+      button.setAttribute("x-on:click", attribute + 'start_sprint();');
+    }
+
+    prepare_sprint();
+
+
+    function start_sprint(){
+      
+      let item = {
+        name: 'create_timer', 
+        data: {
+          type: 'sprint',
+          name: ''
+        },
+        value: document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes,
+        end: null
+      }; 
+
+      window.postMessage(item);
+    }
+    
+
 
     function openPage(url){
       console.log(url);
@@ -250,6 +317,8 @@ const getRequiredScripts = async (url) => {
       }
       window.postMessage(item);
     }
+
+    var test = null;
 
     function stepMutator(){
       // Select the node that will be observed for mutations
@@ -276,6 +345,22 @@ const getRequiredScripts = async (url) => {
                     }
                     
                   }
+                  else if(mutation.addedNodes[mutation.addedNodes.length-1].nodeName == 'SPAN' && mutation.addedNodes[mutation.addedNodes.length-1].className == 'relative z-0 inline-flex shadow-sm rounded-md'){
+                    console.error('IT has  two BUTTONS!');
+                    console.log(mutation.addedNodes[mutation.addedNodes.length-1]);
+                    var button = mutation.addedNodes[mutation.addedNodes.length-1].querySelectorAll('a')[0];
+
+                    try{
+                      var link = button.getAttribute('href');
+                      button.setAttribute('onclick', "openPage('" + link + "');");
+                      button.setAttribute('href', '#');
+                    }
+                    catch(e){
+                      console.log(e);
+                    }
+                    
+                  }
+                  test = mutation.addedNodes;
               }
               else if (mutation.type === 'attributes') {
                   console.log('The ' + mutation.attributeName + ' attribute was modified.');
@@ -294,6 +379,14 @@ const getRequiredScripts = async (url) => {
       
     try{
       document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
+    }
+    catch(e){
+      console.log(e);
+    }
+
+
+    try{
+      eval(showPopup.toString().replace('window.location.href=link;', "start_potion();"));
     }
     catch(e){
       console.log(e);

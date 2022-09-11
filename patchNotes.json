@@ -2,6 +2,27 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.56",
+      "date": "2022-09-11T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Improved UI responsivness at lower resolution",
+            "Reworked UI for buffs, each temple buff now has unique icon",
+            "Added Sprint buff",
+            "Added Potions into buffs (currently works only when enabled at Travel page)",
+            "Added library"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Changes to attack button at travel page to fix potential error"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.55",
       "date": "2022-08-17T12:00:18.175Z",
       "changes": [
