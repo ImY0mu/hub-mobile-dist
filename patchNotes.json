@@ -2,8 +2,20 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.58",
+      "date": "2022-09-12T12:30:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed potion buff not triggering (currently works only when enabled at Travel page)"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.57-hotfix",
-      "date": "2022-09-1T12:30:18.175Z",
+      "date": "2022-09-11T12:30:18.175Z",
       "changes": [
         { "title": "Bugs", "items": 
           [

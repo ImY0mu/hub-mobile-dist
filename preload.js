@@ -386,7 +386,7 @@ const getRequiredScripts = async (url) => {
 
 
     try{
-      eval(showPopup.toString().replace('window.location.href=link;', "start_potion();"));
+      eval(showPopup.toString().replace('window.location.href=link;', "start_potion(); window.location.href=link;"));
     }
     catch(e){
       console.log(e);

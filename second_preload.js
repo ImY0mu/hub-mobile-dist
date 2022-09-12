@@ -641,6 +641,13 @@ const getRequiredScripts = async (url) => {
       }
 
       try{
+        eval(showPopup.toString().replace('window.location.href=link;', "start_potion(); window.location.href=link;"));
+      }
+      catch(e){
+        console.log(e);
+      }
+
+      try{
         anime.suspendWhenDocumentHidden = false;
         console.log('Fixing new travel');
       }
