@@ -572,9 +572,9 @@ const getRequiredScripts = async (url) => {
           type: 'sprint',
           name: ''
         },
-        value: document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes,
+        value: parseInt(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes),
         end: null
-      }; 
+      };  
 
       window.postMessage(item);
     }

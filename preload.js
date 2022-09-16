@@ -301,6 +301,8 @@ const getRequiredScripts = async (url) => {
         end: null
       }; 
 
+      console.log(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes);
+
       window.postMessage(item);
     }
     
