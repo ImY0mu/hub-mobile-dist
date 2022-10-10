@@ -290,6 +290,10 @@ const getRequiredScripts = async (url) => {
 
 
     function start_sprint(){
+      var value = parseInt(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes);
+      var current_energy = parseInt(document.querySelector('#player-popup')._x_dataStack[0].user.current_energy);
+
+      if(value > current_energy) return console.error('You do not have enough energy to do this.');
       
       let item = {
         name: 'create_timer', 
@@ -297,11 +301,10 @@ const getRequiredScripts = async (url) => {
           type: 'sprint',
           name: ''
         },
-        value: document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes,
+        value: value,
         end: null
       }; 
 
-      console.log(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes);
 
       window.postMessage(item);
     }
@@ -321,6 +324,7 @@ const getRequiredScripts = async (url) => {
     }
 
     var test = null;
+
 
     function stepMutator(){
       // Select the node that will be observed for mutations
@@ -667,4 +671,5 @@ ipcRenderer.on("deselectAll", () => {
     console.log(e);
   }
 });
+
 

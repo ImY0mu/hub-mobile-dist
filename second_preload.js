@@ -565,6 +565,10 @@ const getRequiredScripts = async (url) => {
 
 
     function start_sprint(){
+      var value = parseInt(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes);
+      var current_energy = parseInt(document.querySelector('#player-popup')._x_dataStack[0].user.current_energy);
+
+      if(value > current_energy) return console.error('You do not have enough energy to do this.');
       
       let item = {
         name: 'create_timer', 
@@ -572,9 +576,10 @@ const getRequiredScripts = async (url) => {
           type: 'sprint',
           name: ''
         },
-        value: parseInt(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes),
+        value: value,
         end: null
-      };  
+      }; 
+
 
       window.postMessage(item);
     }
@@ -725,13 +730,17 @@ const getRequiredScripts = async (url) => {
           var id = element.getAttribute("id").split("item-")[1].split("-block")[0];
           console.log(id, JSON.stringify(quantity), getName(i), src)
           if(document.querySelectorAll("#collect-btn-" + id).length == 0){
-            element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="removeFromStorage(' + id + ', \`' + getName(i) + '\`, \`' + src + '\`, \' + quantity + '\);  hidePopup();" class="px-2 py-1 bg-red-600 rounded text-xs hover:bg-red-800 mr-2">Remove</button>');
+            element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="removeFromStorage(' + id + '); hidePopup();" class="px-2 py-1 bg-red-600 rounded text-xs hover:bg-red-800 mr-2">Remove</button>');
           }
         }
       }
       catch(e){
         console.error(e);
       }
+    }
+
+    function removeFromStorage(id){
+      window.location.href = "/inventory/action/store/" + id + "?option=remove&new_page=true";;
     }
 
     function getName(index){
@@ -762,6 +771,33 @@ const getRequiredScripts = async (url) => {
       setTimeout(() => {
         document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].show_popup = false;
       }, 25);
+    }
+
+    function showStorageBtn(){
+      var list = document.querySelectorAll('.flex.items-center.cursor-pointer');
+      names = [];
+      try{
+        for(let i = 0; i < list.length; i++){
+          var element = list[i];
+          var name = element.querySelectorAll('.truncate .truncate span')[1].innerText;
+          var src = element.querySelector('img').src;
+          var type = element.querySelector('.text-gray-500.font-semibold.mr-4.text-xs.flex-grow.text-right.whitespace-nowrap').innerText;
+          names.push(name);
+          var quantity = element.querySelectorAll('.truncate .truncate span')[0].innerText;
+          var id = element.getAttribute("id").split("item-")[1].split("-block")[0];
+          console.log(id, JSON.stringify(quantity), getName(i), src)
+          if(document.querySelectorAll("#collect-btn-" + id).length == 0){
+            element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addToStorage(' + id + '); hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-red-800 mr-2">Store</button>');
+          }
+        }
+      }
+      catch(e){
+        console.error(e);
+      }
+    }
+
+    function addToStorage(id){
+      window.location.href = "/inventory/action/store/" + id + "?option=add&new_page=true";;
     }
 
     
@@ -817,6 +853,12 @@ const getRequiredScripts = async (url) => {
               element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="collection_collectables(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
             }
             else if(type == 'Other'){
+              //element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
+            else if(type == 'Food'){
+              //element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
+            }
+            else if(type == 'Material'){
               //element.insertAdjacentHTML('beforeend', '<button id="collect-btn-' + id + '" onclick="addItemCollection(' + id + ', \' + quantity + '\, \`' + getName(i) + '\`, \`' + src + '\`);  hidePopup();" class="px-2 py-1 bg-indigo-600 rounded text-xs hover:bg-indigo-800 mr-2">Collect</button>');
             }
             else{
@@ -958,10 +1000,8 @@ const getRequiredScriptsAfter = async (url) => {
 
   if(url.includes('simple-mmo.com/inventory/items')){ // inventory collect stuff
     script += `
-    setTimeout(() => {
-      eval(addItemCollection.toString().replace("title: name,", "title: name, inputValue: qty,"));
-      eval(collection_collectables.toString().replace("title: name,", "title: name, inputValue: qty,"));
-    },100)
+    eval(addItemCollection.toString().replace("title: name,", "title: name, inputValue: qty,"));
+    eval(collection_collectables.toString().replace("title: name,", "title: name, inputValue: qty,"));
     `;
   }
 

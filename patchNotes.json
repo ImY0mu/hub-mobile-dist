@@ -2,6 +2,29 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.63",
+      "date": "2022-10-10T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Removed Inventory navigation from storage action page",
+            "Reworked keybind feature to avoid unintentional behaviour",
+            "Improved Sprint timer trigger",
+            "Readded Storage remove keybind",
+            "Added Invetory Store keybind",
+            "Removed Food and Material from Inventory Collect keybind"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Sprint timer visual glitch",
+            "Fixed Worship timer not working correctly with Gall'har"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.62",
       "date": "2022-09-16T12:00:18.175Z",
       "changes": [
