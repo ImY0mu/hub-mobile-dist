@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.64-hotfix",
+      "date": "2022-10-10T12:20:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed default keybinds use permission with no patreon"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.63",
       "date": "2022-10-10T12:00:18.175Z",
       "changes": [
