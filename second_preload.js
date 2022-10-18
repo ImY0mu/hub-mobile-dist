@@ -355,39 +355,36 @@ const getRequiredScripts = async (url) => {
 
     var client_settings = JSON.parse(localStorage.settings);
     
-    function changeBars(){
-      var style = document.createElement('style');
-      style.type = 'text/css';
-      style.innerHTML = '.new_progress{width:100%;height:20px!important;border-radius:4px!important;background-image:linear-gradient(to bottom,rgba(255,255,255,.3),rgba(255,255,255,.05))!important; background-color: #831010 !important;}';
-      style.innerHTML += '.progress-moved{padding:4px!important;border-radius:4px!important;background:rgba(0,0,0,.25)!important;box-shadow:inset 0 1px 2px rgb(0 0 0 / 25%),0 1px rgb(255 255 255 / 8%)!important}';
-      style.innerHTML += '.apply_transition{transition:.4s linear!important;transition-property:width,background-color!important}';
-      document.getElementsByTagName('head')[0].appendChild(style);
+    function improve_action_buttons(){
+      var btnUI = document.querySelector('.flex.justify-center.gap-2.flex-wrap.mt-2');
+      btnUI.className = 'grid grid-cols-2 justify-center gap-2 mt-2';
+      var buttons = btnUI.querySelectorAll('button');
 
-      document.querySelector('.character-container-new').style="gap:.5rem!important;padding:.5rem!important;"
-      var width = document.querySelector('.playerHPBar').style.width;
-      document.querySelector('.playerHPBar').style.width = "100%";
-      document.querySelector('.playerHPBar').style.overflow = "hidden";
-      document.querySelector('.playerHPBar').removeAttribute('class');
-      document.querySelector('.playerHPBar').style = "transition: 0s;";
-      document.querySelector('.playerHPBar').style.width = width;
-      document.querySelector('.npcHPBar').style.transition = "0s";
-
-      document.querySelector('.playerHPBar').setAttribute('id', 'playerHPBar');
-      document.querySelector('.playerHPBar').classList.add('new_progress');
-      document.querySelector('.npcHPBar').setAttribute('id', 'npcHPBar');
-      document.querySelector('.npcHPBar').classList.add('new_progress');
-      document.querySelector('.npcHPBar').parentElement.style.overflow = "hidden";
-
-      setTimeout(() => {
-        document.querySelector('#playerHPBar').classList.add('apply_transition');
-        document.querySelector('#npcHPBar').classList.add('apply_transition');
-      }, 25);
+      var UI = document.querySelector('.flex.justify-center.items-center.flex-wrap.gap-2');
+      UI.className = 'flex justify-center items-center flex-wrap gap-2';
+      UI.style = 'height: 60vh;';
 
 
+      buttons.forEach(element => {
+        element.classList.add('justify-center');
+      });
+    }
+
+    function set_for_lower_resolution(){
+      var avatars = document.querySelectorAll('.flex.flex-col.items-center.justify-center.h-32');
+
+      avatars.forEach(element => {
+        element.classList.remove('h-32');
+        element.classList.add('h-24');
+      });
     }
 
     if(client_settings.mobile.ui_improvements){
-      changeBars();
+      improve_action_buttons();
+    }
+
+    if(client_settings.mobile.ui_ba_small_window){
+      set_for_lower_resolution();
     }
     
     `;
@@ -513,6 +510,155 @@ const getRequiredScripts = async (url) => {
 
   if(url.includes('simple-mmo.com/travel')){
     script += `
+
+    function updateListingQty(val) {
+      //document.getElementById('qty_listing_amount').innerHTML=val; 
+    }
+
+    function makeid(length) {
+      var result           = '';
+      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    }
+
+    function fixMissingStylesAtPopup(){
+      var styles = ".smmo-switch{position:relative;display:inline-block;width:40px;height:25px}.smmo-switch input{opacity:0;width:0;height:0}.smmo-slider.round{border-radius:34px}.smmo-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;-webkit-transition:.4s;transition:.4s}.mt-10{margin-top:10px}[type=checkbox]{border-radius:0}[type=checkbox],[type=radio]{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding:0;-webkit-print-color-adjust:exact;color-adjust:exact;display:inline-block;vertical-align:middle;background-origin:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;flex-shrink:0;height:1rem;width:1rem;color:#2563eb;background-color:#fff;border-color:#737373;border-width:1px;--tw-shadow:0 0 #0000}.smmo-slider.round:before{border-radius:50%}.smmo-slider::before{background-color:var(--widget)}.smmo-slider:before{position:absolute;content:'';height:15px;width:15px;left:4px;bottom:4px;background-color:#fff;-webkit-transition:.4s;transition:.4s}";
+      var styleSheet = document.createElement("style")
+      styleSheet.type = "text/css"
+      styleSheet.innerText = styles
+      document.head.appendChild(styleSheet)
+
+      var button = '<button type="button" onclick="marketSellItem();" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs sm:text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Place on Market</button>';
+
+      try {
+        document.querySelector('#item-popup').querySelector('.flex.flex-wrap.justify-center.gap-2.my-4').insertAdjacentHTML('beforeend', button);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fixMissingStylesAtPopup();
+    
+    function marketSellItem(){
+
+      var id = document.querySelector('#item-popup')._x_dataStack[0].item.id;
+      var name = document.querySelector('#item-popup')._x_dataStack[0].item.name;
+      var image = document.querySelector('#item-popup')._x_dataStack[0].item.image;
+      var max_amount = document.querySelector('#item-popup')._x_dataStack[0].item.yours;
+
+      var existing_qty = $("#item-"+id+"-qty").html();
+      var new_qty = 1;
+      var is_bank_payment = false;
+
+      var existing_qty_max = existing_qty;
+      if (existing_qty_max > 50)
+        existing_qty_max = 50;
+
+      var average_price = "<i class='fa fa-sync fa-spin'></i> Loading";
+      var lowest_price = "<i class='fa fa-sync fa-spin'></i> Loading";
+      var highest_price = "<i class='fa fa-sync fa-spin'></i> Loading";
+      var average_id = makeid(5);
+      var lowest_id = makeid(5);
+      var highest_id = makeid(5);
+
+      if (max_amount > 20)
+        max_amount = 20;
+
+      //Get prices
+        $.ajax({
+            type: "POST",
+            url: '/api/market/'+id+'/prices',
+            success: function( data ) {
+                average_price = data.average_price;
+                $("#average-price-"+id+"-"+average_id).html("<img src='/img/icons/I_GoldCoin.png' class='h-4'> "+average_price);
+
+                lowest_price = data.lowest_price;
+                $("#lowest-price-"+id+"-"+lowest_id).html("<img src='/img/icons/I_GoldCoin.png' class='h-4'> "+lowest_price);
+
+                highest_price = data.highest_price;
+                $("#highest-price-"+id+"-"+highest_id).html("<img src='/img/icons/I_GoldCoin.png' class='h-4'> "+highest_price);
+            }
+        });
+
+      var previous_prices = "Average price: <span id='average-price-"+id+"-"+average_id+"'>"+average_price+"</span><br/>"+
+      "Lowest price: <span id='lowest-price-"+id+"-"+lowest_id+"'>"+lowest_price+"</span><br/>"+
+      "Highest price: <span id='highest-price-"+id+"-"+highest_id+"'>"+highest_price+"</span><br/>"+
+      "<small>in the past 30 days</small>";
+
+
+      var moneyToBank = "<div class=''><strong>Place gold in bank</strong><br><label class='smmo-switch mt-10'><input type='checkbox' name='bank_payment' id='bank_payment'><span class='smmo-slider round'></span></label><br><small>+2.5% fee</small></div>";
+
+
+      Swal.fire({
+        title: 'Sell '+ name,
+        imageUrl: image,
+        html: previous_prices+"<br/><Br/><small>All final transactions have a 3.5% fee.</small>"+
+  "<br/><br/><strong>Quantity</strong><br/>"+
+  "<input type='number' min='0' max='"+max_amount+"'  oninput='updateListingQty(this.value);' onchange='updateListingQty(this.value);' id='swal-input1' name='amount' class='swal2-input'><br/>"+
+  "<small>You can only list 20 items at one time.</small><Br/><br/>"+
+  "<strong>Amount</strong><br/><input type='text' inputmode='numeric' onkeyup='formatInputNumber(this);' id='swal-input2' name='quantity' class='gold-input-icon swal2-input'><br/>"+moneyToBank,
+        showCancelButton: true,
+        confirmButtonText: 'Sell item',
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+          new_qty = document.getElementById('swal-input1').value;
+          
+          if($('#bank_payment').is(':checked'))
+            is_bank_payment = true;
+          
+          return fetch('/api/market/'+id, {
+              'method': 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({_token: token, qty: document.getElementById('swal-input1').value, amount: document.getElementById('swal-input2').value, bank_payment: is_bank_payment})
+            })
+            .then(response => {
+              if (!response.ok) {
+
+                if(response.status == 429){
+                    throw new Error("You are listing items on the market too fast. Please wait a few moments before trying again. ");
+                }
+                
+                throw new Error(response.statusText)
+              }
+              return response.json()
+            })
+            .catch(error => {
+              Swal.showValidationMessage(
+                error
+              )
+            })
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire({
+            title: result.value.title,
+            html: result.value.result,
+            type: result.value.type
+          });
+
+          if (result.value.type == "success"){
+            var new_qty_two = existing_qty - new_qty;
+            if (new_qty_two < 1){
+              $("#item-"+id+"-block").hide();
+            }else{
+              $("#item-"+id+"-qty").html(new_qty_two);
+            }
+          }
+        }
+      });
+  }
+
+    `;
+
+    script += `
       console.log('Travel opened in step mode.');
 
       var stepCounter = 0;
@@ -523,7 +669,8 @@ const getRequiredScripts = async (url) => {
 
     function prepare_potions(){
       var links = document.querySelector('[x-show="potions_dropdown"]').querySelectorAll('a');
-      for (let i = 0; i < links.length; i++) {
+      try {
+        for (let i = 0; i < links.length; i++) {
           var text = links[i].querySelectorAll('div')[2].innerText;
           const potion = {
               type: text.split('%')[1].split('for')[0].split('(')[0].trim(),
@@ -533,6 +680,9 @@ const getRequiredScripts = async (url) => {
           potions.push(potion);
           var attribute = links[i].getAttribute("onclick");
           links[i].setAttribute('onclick', attribute + '; selected_potion = ' + i + ';')
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
 

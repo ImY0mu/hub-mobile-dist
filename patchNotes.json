@@ -2,6 +2,29 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.67",
+      "date": "2022-10-18T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Changed Bottom menu icons to be more fitting",
+            "Improvements and changes to code (let me know if something stopped working)",
+            "Bottom menu now hides when opening player's information popup",
+            "Step Mode now supports multiple accounts",
+            "You can now place items on market via item popup while traveling",
+            "Removed old UI improvements because of the battle arena change",
+            "Added small UI improvement to battle arena"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Step mode not working when player had no potions in inventory"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.66",
       "date": "2022-10-15T12:20:18.175Z",
       "changes": [
