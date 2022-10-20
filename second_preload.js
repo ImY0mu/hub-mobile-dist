@@ -356,27 +356,35 @@ const getRequiredScripts = async (url) => {
     var client_settings = JSON.parse(localStorage.settings);
     
     function improve_action_buttons(){
-      var btnUI = document.querySelector('.flex.justify-center.gap-2.flex-wrap.mt-2');
-      btnUI.className = 'grid grid-cols-2 justify-center gap-2 mt-2';
-      var buttons = btnUI.querySelectorAll('button');
+      try {
+        var btnUI = document.querySelector('.flex.justify-center.gap-2.flex-wrap.mt-2');
+        btnUI.className = 'grid grid-cols-2 justify-center gap-2 mt-2';
+        var buttons = btnUI.querySelectorAll('button');
 
-      var UI = document.querySelector('.flex.justify-center.items-center.flex-wrap.gap-2');
-      UI.className = 'flex justify-center items-center flex-wrap gap-2';
-      UI.style = 'height: 60vh;';
+        var UI = document.querySelector('.flex.justify-center.items-center.flex-wrap.gap-2');
+        UI.className = 'flex justify-center items-center flex-wrap gap-2';
+        UI.style = 'height: 60vh;';
 
 
-      buttons.forEach(element => {
-        element.classList.add('justify-center');
-      });
+        buttons.forEach(element => {
+          element.classList.add('justify-center');
+        });
+      } catch (error) {
+        
+      }
     }
 
     function set_for_lower_resolution(){
-      var avatars = document.querySelectorAll('.flex.flex-col.items-center.justify-center.h-32');
+      try{
+        var avatars = document.querySelectorAll('.flex.flex-col.items-center.justify-center.h-32');
 
-      avatars.forEach(element => {
-        element.classList.remove('h-32');
-        element.classList.add('h-24');
-      });
+        avatars.forEach(element => {
+          element.classList.remove('h-32');
+          element.classList.add('h-24');
+        });
+      } catch (error) {
+          
+      }
     }
 
     if(client_settings.mobile.ui_improvements){
