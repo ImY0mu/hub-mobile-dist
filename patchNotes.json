@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.74",
+      "date": "2022-11-24T12:20:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed behaviour of Inventory when it was opened from within a task button"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.73",
       "date": "2022-11-24T12:00:18.175Z",
       "changes": [
