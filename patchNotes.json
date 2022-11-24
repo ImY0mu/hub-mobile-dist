@@ -8,8 +8,12 @@
         { "title": "General", "items": 
           [
             "Updated the behaviour of Dumping grounds inventory",
-            "Fixed bug at Player HUD where level was not updating live",
             "UI changes Player HUD"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Player HUD not live updating level"
           ] 
         }
       ]
