@@ -2,6 +2,20 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.73",
+      "date": "2022-11-24T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Updated the behaviour of Dumping grounds inventory",
+            "Fixed bug at Player HUD where level was not updating live",
+            "UI changes Player HUD"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.72",
       "date": "2022-11-22T12:00:18.175Z",
       "changes": [
