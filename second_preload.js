@@ -25,6 +25,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
   })
   .catch(error => console.log(error));
 
+
+  document.addEventListener(
+    "auxclick",
+    function (e) {
+      e.preventDefault();
+    },
+    false
+  );
+
+  
   window.addEventListener("message", function(event) {
     console.log(event.data);
     if(event.data == "closeWindow"){
@@ -1142,6 +1152,7 @@ const getRequiredScripts = async (url) => {
 
         const patreon = patreons.find((patreon) => patreon.user_id == userID);
 
+        if(patreon == null) return console.log('Not a patreon');
         switch (patreon.tier) {
           case 1:
             var icon = 'http://localhost:8081/patreon/blue_diamond.png';

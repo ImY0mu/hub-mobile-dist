@@ -2,6 +2,19 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.75",
+      "date": "2022-12-06T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Disabled mouse wheel click on links",
+            "Fixed way blank links are handled in Moderation tools"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.74",
       "date": "2022-11-24T12:20:18.175Z",
       "changes": [

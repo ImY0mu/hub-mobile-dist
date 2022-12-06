@@ -28,6 +28,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
   })
   .catch(error => console.log(error));
 
+  document.addEventListener(
+				"auxclick",
+				function (e) {
+					e.preventDefault();
+				},
+				false
+			);
+
   window.addEventListener("message", function(event) {
     //console.log(event.data);
     if(event.data.type == "openPage"){
