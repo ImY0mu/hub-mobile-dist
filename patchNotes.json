@@ -2,6 +2,19 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.76",
+      "date": "2022-12-09T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Added Vietnam language thanks to @phong322010",
+            "Added French language thanks to @Cypral"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.75",
       "date": "2022-12-06T12:00:18.175Z",
       "changes": [
