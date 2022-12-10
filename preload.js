@@ -163,7 +163,7 @@ const getRequiredScripts = async (url) => {
 
       var pressedKey = "";
       if(e.type == "mousedown"){
-        if(e.button != 0 && e.button != 1 && e.button != 2){
+        if(e.button != 0 && e.button != 2){
           if(e.shiftKey) pressedKey += "Shift+";
           if(e.ctrlKey) pressedKey += "Ctrl+";
           if(e.altKey) pressedKey += "Alt+";
@@ -190,7 +190,20 @@ const getRequiredScripts = async (url) => {
       window.addEventListener('keydown', function(e){
         if((e.key.startsWith('F') && e.key != "F") || e.key == 'Escape' || e.key == 'Backspace') self.keyBindListener(e);
       }, false);
-      window.addEventListener('mousedown', this.keyBindListener, false);
+      document.addEventListener(
+				"auxclick",
+				function (e) {
+					e.preventDefault();
+					//self.keyBindListener(e);
+				},
+				false
+			);
+      window.addEventListener('mousedown', function(e){
+        if(e.button == 1){
+          e.preventDefault();
+        }
+        self.keyBindListener(e);
+      }, false);
       
     }
     catch (error) {
