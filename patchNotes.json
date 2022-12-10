@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.78",
+      "date": "2022-12-10T12:10:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed bug where keybinds showed duplicates of those that require patreon"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.77",
       "date": "2022-12-10T12:00:18.175Z",
       "changes": [
