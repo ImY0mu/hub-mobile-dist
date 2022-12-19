@@ -2,6 +2,19 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.79",
+      "date": "2022-12-19T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Small improvements to bottom bar at lower resolutions",
+            "Added new keybinds for GPVP Tool"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.78",
       "date": "2022-12-10T12:10:18.175Z",
       "changes": [
