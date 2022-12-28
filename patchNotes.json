@@ -2,6 +2,21 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.80",
+      "date": "2022-12-28T12:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Tasks keybind behaviour",
+            "Fixed Tasks redirecting to a wrong default page",
+            "Fixed starting Knight's job which then opened new page",
+            "Fixed other players' collection page"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.79",
       "date": "2022-12-19T12:00:18.175Z",
       "changes": [
