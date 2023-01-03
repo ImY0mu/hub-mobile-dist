@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.81",
+      "date": "2023-01-03T12:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Mouse wheel click not working at some of the devices"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.80",
       "date": "2022-12-28T12:00:18.175Z",
       "changes": [
