@@ -484,8 +484,51 @@ const getRequiredScripts = async (url) => {
     `;
   }
 
+  if(url.includes('simple-mmo.com/travel')){
+    script += `
+      function hideBackground(){
+        try{
+          document.getElementById('complete-travel-container').querySelector('div.relative').style.background = '';
+        }
+        catch(e){
+          console.error(e);
+        }
+      }
+    `;
+  }
+
+  if( url.includes('simple-mmo.com/npcs/attack/') || url.includes('simple-mmo.com/user/attack/')){
+    script += `
+      function hideBackground(){
+        try{
+          document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background = '';
+        }
+        catch(e){
+          console.error(e);
+        }
+      }
+    `;
+  }
+
+  if(url.includes('simple-mmo.com/user/attack/')){
+    script += `
+      function hideBackground(){
+        try{
+          document.querySelector('div.attackbg').style.background = 'transparent';
+          
+          setTimeout(() => { 
+            document.querySelector('div.attackbg').style.background = 'transparent'; 
+          }, 100);
+        }
+        catch(e){
+          console.error(e);
+        }
+      }
+    `;
+  }
+
   //Use Item keybind config
-  if(url == 'simple-mmo.com/travel' || url.includes('simple-mmo.com/npcs/attack/')){ //where to apply
+  if(url.includes('simple-mmo.com/travel') || url.includes('simple-mmo.com/npcs/attack/')){ //where to apply
     script += `
     function useQuickItemAjax(){
       $.ajax({
