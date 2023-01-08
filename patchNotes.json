@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.82",
+      "date": "2023-01-08T12:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Temporary fixed missing option to set avatar for knight after next page in knight's change avatar collection till Mike fixes it at the app"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.81",
       "date": "2023-01-03T12:00:18.175Z",
       "changes": [
