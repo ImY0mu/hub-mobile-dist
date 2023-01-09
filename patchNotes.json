@@ -2,6 +2,19 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.84",
+      "date": "2023-01-09T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Removed Cooldown from some of the keybinds",
+            "Location background keybind is now a toggle (show/hide)"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.83",
       "date": "2023-01-08T12:20:18.175Z",
       "changes": [

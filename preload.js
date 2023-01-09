@@ -687,26 +687,133 @@ const getRequiredScripts = async (url) => {
   
   if(url.includes('simple-mmo.com/travel')){
     script += `
-      function hideBackground(){
+    var is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
+    var original_bg = null;
+
+    function hideBackground(on_page_load = false){
+      if(!on_page_load) is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
+      if(!is_bg_hidden && on_page_load) return;
+      if(is_bg_hidden && on_page_load) is_bg_hidden = false;
+
+      if(!is_bg_hidden){
         try{
-          document.getElementById('complete-travel-container').querySelector('div.relative').style.background = '';
+          if(!on_page_load){
+            localStorage.setItem('is_bg_hidden', true);
+          }
+
+          is_bg_hidden = true;
+          original_bg = document.querySelector('#complete-travel-container').querySelector('div.relative').style.background;
+          return document.querySelector('#complete-travel-container').querySelector('div.relative').style.background = '';
         }
         catch(e){
-          console.error(e);
+          return console.error(e);
         }
       }
+      if(!on_page_load){
+        localStorage.setItem('is_bg_hidden', false);
+      }
+      is_bg_hidden = false;
+      document.querySelector('#complete-travel-container').querySelector('div.relative').style.background = original_bg;
+
+    }
+
+    hideBackground(true);
+    `;
+  }
+
+  if( url.includes('simple-mmo.com/npcs/attack/')){
+    script += `
+    var is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
+    var original_bg = null;
+
+    function hideBackground(on_page_load = false){
+      if(!on_page_load) is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
+      if(!is_bg_hidden && on_page_load) return;
+      if(is_bg_hidden && on_page_load) is_bg_hidden = false;
+
+      if(!is_bg_hidden){
+        try{
+          if(!on_page_load){
+            localStorage.setItem('is_bg_hidden', true);
+          }
+
+          is_bg_hidden = true;
+          original_bg = document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background;
+          return document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background = '';
+        }
+        catch(e){
+          return console.error(e);
+        }
+      }
+
+      if(!on_page_load){
+        localStorage.setItem('is_bg_hidden', false);
+      }
+      is_bg_hidden = false;
+      document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background = original_bg;
+
+    }
+
+    hideBackground(true);
+    `;
+  }
+
+  if(url.includes('simple-mmo.com/user/attack/')){
+    script += `
+
+    var is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
+    var original_bg = null;
+
+    function hideBackground(on_page_load = false){
+      if(!on_page_load) is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
+      if(!is_bg_hidden && on_page_load) return;
+      if(is_bg_hidden && on_page_load) is_bg_hidden = false;
+      
+      if(!is_bg_hidden){
+        try{
+          if(!on_page_load){
+            localStorage.setItem('is_bg_hidden', true);
+          }
+
+          is_bg_hidden = true;
+          original_bg = document.querySelector('div.attackbg').style.background = '';
+          return document.querySelector('div.attackbg').style.background = 'transparent';
+        }
+        catch(e){
+          return console.error(e);
+        }
+      }
+      if(!on_page_load){
+        localStorage.setItem('is_bg_hidden', false);
+      }
+      is_bg_hidden = false;
+      document.querySelector('div.attackbg').style.background = original_bg;
+
+    }
+
+    hideBackground(true);
     `;
   }
 
   if( url.includes('simple-mmo.com/npcs/attack/') || url.includes('simple-mmo.com/user/attack/')){
     script += `
+      var is_bg_hidden = false;
+      var original_bg = '';
+  
       function hideBackground(){
-        try{
-          document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background = '';
+        if(!is_bg_hidden){
+          try{
+            is_bg_hidden = true;
+            original_bg = document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background.style.background;
+            return document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background = '';;
+          }
+          catch(e){
+            return console.error(e);
+          }
         }
-        catch(e){
-          console.error(e);
-        }
+        is_bg_hidden = false;
+        document.querySelector('div.rounded-lg.h-screen.bg-opacity-20').style.background.style.background = original_bg;
+  
       }
     `;
   }
