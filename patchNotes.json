@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.86",
+      "date": "2023-01-10T12:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Step Mode after recent in-game changes"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.85",
       "date": "2023-01-09T12:20:18.175Z",
       "changes": [

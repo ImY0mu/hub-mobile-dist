@@ -989,7 +989,14 @@ const getRequiredScripts = async (url) => {
       stepMutator();
       
       try{
-        document.querySelector('#step_button').attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
+        document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
+      }
+      catch(e){
+        console.log(e);
+      }
+
+      try{
+        document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
       }
       catch(e){
         console.log(e);
