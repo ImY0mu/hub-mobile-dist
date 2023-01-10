@@ -558,14 +558,18 @@ const getRequiredScripts = async (url) => {
     stepMutator();
       
     try{
-      document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
+      var value = document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue;
+
+      document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue =  value + "countTheStep();";
     }
     catch(e){
       console.log(e);
     }
 
     try{
-      document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue = "takeStep; countTheStep();";
+      var value = document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue;
+
+      document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue = value + "; countTheStep();";
     }
     catch(e){
       console.log(e);
