@@ -2,6 +2,25 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.87",
+      "date": "2023-01-14T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Removed leftover hidden webview",
+            "Player information gets updated every 10th NPC target during single arena slaughter or every 10th target during GPvP tool usage",
+            "Added notification badge to exit/leave buttons to combat pages"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed issue during GPvP tool usage, that stopped opening new target when there were more than one webviews"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.86",
       "date": "2023-01-10T12:00:18.175Z",
       "changes": [
