@@ -991,20 +991,20 @@ const getRequiredScripts = async (url) => {
       try{
         var value = document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue;
   
-        document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue =  value + "countTheStep();";
+        document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue =  value + "; countTheStep();";
       }
       catch(e){
         console.log(e);
       }
   
-      try{
-        var value = document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue;
+      // try{
+      //   var value = document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue;
   
-        document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue = value + "; countTheStep();";
-      }
-      catch(e){
-        console.log(e);
-      }
+      //   document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue = value + "; countTheStep();";
+      // }
+      // catch(e){
+      //   console.log(e);
+      // }
 
       try{
         eval(showPopup.toString().replace('window.location.href=link;', "start_potion(); window.location.href=link;"));

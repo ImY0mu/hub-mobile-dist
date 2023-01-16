@@ -2,6 +2,23 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.88",
+      "date": "2023-01-16T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Removed temporary fix of missing option to set avatar for knight"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed issue of travel step button after recent game update"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.87",
       "date": "2023-01-14T12:00:18.175Z",
       "changes": [
