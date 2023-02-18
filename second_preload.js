@@ -1294,26 +1294,38 @@ const getRequiredScripts = async (url) => {
         const patreon = patreons.find((patreon) => patreon.user_id == userID);
 
         if(patreon == null) return console.log('Not a patreon');
+
+        var url = localStorage.localhost;
+
         switch (patreon.tier) {
           case 1:
-            var icon = 'http://localhost:8081/patreon/blue_diamond.png';
+            var icon = url + 'patreon/blue_diamond.png?injector=AppHubApp%20Hub';
             document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
           case 2:
-            var icon = 'http://localhost:8081/patreon/green_diamond.png';
+            var icon = url + 'patreon/green_diamond.png?injector=AppHubApp%20Hub';
             document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
           case 3:
-            var icon = 'http://localhost:8081/patreon/ruby_diamond.png';
+            var icon = url + 'patreon/ruby_diamond.png?injector=App%20Hub';
             document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
           default:
-            if(patreons[k].icon != '') var icon = 'http://localhost:8081/patreon/' + patreons[k].icon.replace('http://y0mu.mablog.eu/patreon_images/', '');
-            document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+            // if(patreons[k].icon != '') var icon = url + 'patreon/' + patreons[k].icon.replace('http://y0mu.mablog.eu/patreon_images/', '');
+            // document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
         }
       }
+      function isCcPodcast(){
+        if(userID != 299465 && userID != 406116 && userID != 5944) return;
+
+        var url = localStorage.localhost;
+
+        var icon = url + 'patreon/CC_white_outline.png?injector=App%20Hub';
+        document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Couch Cat</span></span></div>');
+      }
       isPatreon();
+      isCcPodcast();
     `;
 
     if(url == 'simple-mmo.com/user/view/5944'){
