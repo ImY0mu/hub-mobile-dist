@@ -560,20 +560,28 @@ const getRequiredScripts = async (url) => {
     try{
       var value = document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue;
 
-      document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue =  value + "; countTheStep();";
+      if(!value.endsWith(';')){
+        value += ';';
+      }
+
+      document.querySelectorAll('#step_button')[0].attributes['x-on:mousedown'].nodeValue =  value + " countTheStep();";
     }
     catch(e){
       console.log(e);
     }
 
-    // try{
-    //   var value = document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue;
+    try{
+      var value = document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue;
 
-    //   document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue = value + "; countTheStep();";
-    // }
-    // catch(e){
-    //   console.log(e);
-    // }
+      if(!value.endsWith(';')){
+        value += ';';
+      }
+
+      document.querySelectorAll('#step_button')[1].attributes['x-on:mousedown'].nodeValue =  value + " countTheStep();";
+    }
+    catch(e){
+      console.log(e);
+    }
 
 
     try{
