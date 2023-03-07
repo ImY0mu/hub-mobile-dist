@@ -1452,7 +1452,7 @@ const getRequiredScripts = async (url) => {
         }
       }
       function isCcPodcast(){
-        if(userID != 299465 && userID != 406116 && userID != 5944) return;
+        if(userID != 299465 && userID != 406116) return;
 
         var url = localStorage.localhost;
 
