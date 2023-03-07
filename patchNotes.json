@@ -14,7 +14,8 @@
           [
             "Fixed Bug with footer bar and step mode button",
             "Fixed buttons not disabling when you enter battle",
-            "Fixed Smashr link not being opened in default browser"
+            "Fixed Smashr link not being opened in default browser",
+            "Fixed View Collections keybind"
           ] 
         }
       ]
