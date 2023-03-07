@@ -13,7 +13,8 @@
         { "title": "Bugs", "items": 
           [
             "Fixed Bug with footer bar and step mode button",
-            "Fixed buttons not disabling when you enter battle"
+            "Fixed buttons not disabling when you enter battle",
+            "Fixed Smashr link not being opened in default browser"
           ] 
         }
       ]
