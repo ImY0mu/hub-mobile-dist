@@ -260,6 +260,120 @@ const getRequiredScripts = async (url) => {
 
     script += `
 
+    var is_pet_ui = false;
+    var return_pet_back = false;
+
+    function petUiController(on_page_load = false){
+      if(on_page_load) is_pet_ui = localStorage.getItem('is_pet_ui') === 'true';
+      if(!is_pet_ui && on_page_load) return;
+      if(is_pet_ui && on_page_load) is_pet_ui = false;
+
+      if(!is_pet_ui){
+
+        if(!on_page_load){
+          localStorage.setItem('is_pet_ui', true);
+        }
+
+        return showPetUI();
+      }
+
+      
+      localStorage.setItem('is_pet_ui', false);
+
+      return hidePetUI();
+    }
+
+    petUiController(true);
+    
+    function hidePetUI(){
+      is_pet_ui = false;
+     
+      
+      document.getElementById('complete-travel-container').querySelector('div[class="text-center mt-4 mb-2 flex item-center justify-center gap-2"]').remove();
+
+      // Revert avatar
+      document.querySelector('img[class="h-10 hidden"]').classList.remove('hidden');
+      
+      // Revert padding
+      document.getElementById('complete-travel-container').querySelector('div[class="p-1"]').setAttribute('class', 'p-4');
+
+      // Revert marging
+      document.getElementById('complete-travel-container').querySelector('div[class="ml-1 w-0 flex-1 pt-0.5"]').setAttribute('class', 'ml-3 w-0 flex-1 pt-0.5')
+
+    }
+
+    function showPetUI(){
+      is_pet_ui = true;
+      
+      var avatar_url = document.getElementById('complete-travel-container')._x_dataStack[0].user.avatar;
+      var pet_url = document.getElementById('complete-travel-container')._x_dataStack[0].user.pet;
+
+      // Remove avatar
+      document.querySelector('img[class="h-10"]').classList.add('hidden');
+
+      // Fix padding
+      document.getElementById('complete-travel-container').querySelector('div[class="p-4"]').setAttribute('class', 'p-1');
+
+      // Remove marging
+      document.getElementById('complete-travel-container').querySelector('div[class="ml-3 w-0 flex-1 pt-0.5"]').setAttribute('class', 'ml-1 w-0 flex-1 pt-0.5')
+
+      var modifiers_element = document.getElementById('complete-travel-container').querySelector('div[class="text-center mt-2"]');
+
+      modifiers_element.insertAdjacentHTML('beforeBegin', '<div class="text-center mt-4 mb-2 flex item-center justify-center gap-2"><img id="avatar" class="h-12" src="' + avatar_url + '"><img id="pet" class="h-10" src="' +  pet_url + '"></div>');
+    }
+
+    function animateStep(){
+      if(!is_pet_ui) return;
+
+      anime({
+        targets: '#avatar',
+        translateY: [0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0],
+        duration: 5000,
+        easing: 'linear'
+      });
+
+      var rand = Math.floor(Math.random() * 100);
+      console.log(rand);
+
+      if(return_pet_back){
+        anime({
+          targets: '#pet',
+          translateY: [0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0],
+          translateX:['100vw', 0],
+          duration: 5000,
+          delay: 300,
+          easing: 'linear'
+        });
+
+        return_pet_back = false;
+
+        return;
+      }
+
+      if(rand >= 99){
+        anime({
+          targets: '#pet',
+          translateY: [0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0],
+          translateX: [0, '100vw'],
+          duration: 5000,
+          delay: 300,
+          easing: 'linear'
+        });
+
+        return_pet_back = true;
+
+        return;
+      }
+
+      anime({
+        targets: '#pet',
+        translateY: [0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0, -8, 0],
+        duration: 5000,
+        delay: 300,
+        easing: 'linear'
+      });
+    }
+
     function updateListingQty(val) {
       //document.getElementById('qty_listing_amount').innerHTML=val; 
     }
@@ -499,6 +613,15 @@ const getRequiredScripts = async (url) => {
 
     var test = null;
 
+    const injectCSS = css => {
+      let el = document.createElement('style');
+      el.type = 'text/css';
+      el.innerText = css;
+      document.head.appendChild(el);
+      return el;
+    };
+    
+    injectCSS('.disabled{ pointer-events: none; opacity: 30%; }');
 
     function stepMutator(){
       // Select the node that will be observed for mutations
@@ -534,6 +657,10 @@ const getRequiredScripts = async (url) => {
                       var link = button.getAttribute('href');
                       button.setAttribute('onclick', "openPage('" + link + "');");
                       button.setAttribute('href', '#');
+
+                      if(button.innerText == 'Attack'){
+                        button.setAttribute('onclick', "openPage('" + link + "'); event.target.classList.add('disabled'); event.target.parentElement.children[1].classList.add('disabled')");
+                      }
                     }
                     catch(e){
                       console.log(e);
@@ -602,6 +729,7 @@ const getRequiredScripts = async (url) => {
     function countTheStep(){
       stepCounter++;
       partyCheck();
+      animateStep();
       if(stepCounter == 9){
         stepCounter = 0;
         console.log('called');
