@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.93",
+      "date": "2023-03-08T12:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed Step Mode Button issue when leaving travel page"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.92",
       "date": "2023-03-07T12:00:18.175Z",
       "changes": [
