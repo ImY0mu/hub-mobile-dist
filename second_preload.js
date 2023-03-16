@@ -1004,15 +1004,15 @@ const getRequiredScripts = async (url) => {
     prepare_potions();
 
     function start_potion(){
-      
       let item = {
         name: 'create_timer', 
+        type: 'buff',
         data: {
           type: 'potion',
           name: potions[selected_potion].type,
           percentage: potions[selected_potion].percentage,
+          value: potions[selected_potion].value,
         },
-        value: potions[selected_potion].value,
         end: null
       }; 
 
@@ -1037,14 +1037,14 @@ const getRequiredScripts = async (url) => {
       
       let item = {
         name: 'create_timer', 
+        type: 'buff',
         data: {
           type: 'sprint',
-          name: ''
+          name: '',
+          value: value,
         },
-        value: value,
         end: null
       }; 
-
 
       window.postMessage(item);
     }
@@ -1257,19 +1257,43 @@ const getRequiredScripts = async (url) => {
     script += `
     var names = [];
 
-    // var item = null;
-    // function prepare_item(){
-    //   item = document.querySelector('main div.container-two div.max-w-7xl.mx-auto')._x_dataStack[0].item;
-    //   console.log(item);
-    // }
+    
 
-    // function showItemPopup(){
-    //   console.log('called');
-    //   prepare_item();
-    // }
+    function preparePopupForPotionUsage(){
+      var buttons = document.querySelector('[x-show="show_popup"]').querySelectorAll('button');
 
-    // showItemPopup();
+      for(let i = 0; i < buttons.length; i++){
+        var element = buttons[i];
+        if(element.innerText.includes('Potion')){
+          element.setAttribute('onclick', 'start_potion()');
+          break;
+        }
+      }
+    }
 
+    preparePopupForPotionUsage();
+    
+    function start_potion(){
+      var name = document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].item.name;
+      const potion = {
+        type: name.split('%')[1].split('for')[0].split('(')[0].trim(),
+        percentage: name.split('%')[0],
+        value: parseInt(name.split('(')[1].split('minutes')[0].trim()),
+      };
+      let item = {
+        name: 'create_timer', 
+        type: 'buff',
+        data: {
+          type: 'potion',
+          name: potion.type,
+          percentage: potion.percentage,
+          value: potion.value,
+        },
+        end: null
+      }; 
+
+      window.postMessage(item);
+    }
 
     function hidePopup(){
       setTimeout(() => {
@@ -1394,11 +1418,12 @@ const getRequiredScripts = async (url) => {
 
       let item = {
         name: 'create_timer', 
+        type: 'buff',
         data: {
           type: 'temple',
-          name: god.toLocaleLowerCase()
+          name: god.toLocaleLowerCase(),
+          value: 60,
         },
-        value: 60,
         end: null
       }; 
 

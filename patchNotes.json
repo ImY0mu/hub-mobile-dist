@@ -2,6 +2,22 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.94",
+      "date": "2023-03-16T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Rewrote the whole Buff timers feature into Global Timers (beta)",
+            "Added Crafting Timer to Global Timers (patreon only)",
+            "Moved World Boss Timer from Battle Arena button to Global Timers (patreon only)",
+            "Potion Buff can now be trigerred from within inventory",
+            "You can now remove Global Timer by right clicking on the icon twice"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.93",
       "date": "2023-03-08T12:00:18.175Z",
       "changes": [

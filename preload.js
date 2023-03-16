@@ -54,6 +54,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       console.log('Started the timer!');
       sendToWindow('create_timer', event.data);
     }
+    if(event.data.name == "end_timer"){
+      console.log('Ended the timer!');
+      sendToWindow('end_timer', event.data);
+    }
     if(event.data.type == "updateDiscordActivity"){
       console.log(event.data);
       sendToWindow('updateDiscordActivity', event.data)
@@ -550,15 +554,18 @@ const getRequiredScripts = async (url) => {
     prepare_potions();
 
     function start_potion(){
+      console.log("Drunk the potion of " + potions[selected_potion].type + "(" + potions[selected_potion].percentage + "%)" + " for " + potions[selected_potion].value + " minutes");
+      
       
       let item = {
         name: 'create_timer', 
+        type: 'buff',
         data: {
           type: 'potion',
           name: potions[selected_potion].type,
           percentage: potions[selected_potion].percentage,
+          value: potions[selected_potion].value,
         },
-        value: potions[selected_potion].value,
         end: null
       }; 
 
@@ -579,18 +586,20 @@ const getRequiredScripts = async (url) => {
       var value = parseInt(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes);
       var current_energy = parseInt(document.querySelector('#player-popup')._x_dataStack[0].user.current_energy);
 
+      console.log("Starting the sprint for " + value + " minutes");
+
       if(value > current_energy) return console.error('You do not have enough energy to do this.');
       
       let item = {
         name: 'create_timer', 
+        type: 'buff',
         data: {
           type: 'sprint',
-          name: ''
+          name: '',
+          value: value,
         },
-        value: value,
         end: null
-      }; 
-
+      };
       
 
 
@@ -622,6 +631,15 @@ const getRequiredScripts = async (url) => {
     };
     
     injectCSS('.disabled{ pointer-events: none; opacity: 30%; }');
+
+    function fallingLeaves(){
+      injectCSS('.leaf_container{ position:fixed; top: 0; left: 0; z-index: 1; pointer-events: none; min-height: 100vh; min-width: 100vw;}.leaf,.leaf div{position:absolute}.leaf{width:100%;height:100%;top:0;left:0}.leaf div{display:block}.leaf div:first-child{left:20%;animation:15s linear -6s infinite fall}.leaf div:nth-child(2){left:70%;animation:15s linear -8s infinite fall}.leaf div:nth-child(3){left:10%;animation:20s linear -7s infinite fall}.leaf div:nth-child(4){left:50%;animation:18s linear -10s infinite fall}.leaf div:nth-child(5){left:85%;animation:14s linear -16s infinite fall}.leaf div:nth-child(6){left:65%;animation:16s linear -12s infinite fall}.leaf div:nth-child(7){left:90%;animation:15s linear -8s infinite fall}.leaf div:nth-child(8){left:70%;animation:15s linear -6s infinite fall}.leaf div:nth-child(9){left:40%;animation:15s linear -9s infinite fall}.leaf div:nth-child(10){left:30%;animation:13s linear -9s infinite fall}.leaf div:nth-child(11){left:75%;animation:16s linear -8s infinite fall}.leaf div:nth-child(12){left:45%;animation:18s linear -12s infinite fall}@keyframes fall{0%{opacity:1;top:-10%;transform:rotate(0)}20%{opacity:.8;transform:rotate(45deg)}40%{transform:(90deg)}60%{transform:rotate(135deg)}80%{transform:rotate(180deg)}100%{opacity:.5;top:110%;transform:(225deg)}}');
+
+      var html = '<div class="leaf_container"><div class="leaf"><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div><div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div></div></div>';
+      
+      
+      document.querySelector('.notyf').insertAdjacentHTML('beforebegin', html);
+    }
 
     function stepMutator(){
       // Select the node that will be observed for mutations
@@ -832,6 +850,64 @@ const getRequiredScripts = async (url) => {
     `;
   }
   
+  if(url.includes('/crafting/menu')){
+    script += `
+    var last_expiry_time = 0;
+
+    function checkIfThereIsOngoingCrafting(){
+      var data = document.querySelector('.container-two').querySelector('.max-w-7xl.mx-auto .min-h-screen-smmo.bg-gray-100 div.px-2.pt-2 div div')._x_dataStack[0];
+      if(data.current_crafting_session.complete)
+        return endCraftingTimer();
+
+      var new_expiry_time = data.current_crafting_session.expiry_time;
+      if(last_expiry_time != new_expiry_time){
+        last_expiry_time = new_expiry_time;
+        console.log('new timer!');
+        return createCraftingTimer(last_expiry_time);
+      }
+    }
+
+    function createCraftingTimer(end){
+      console.log(end);
+
+      let item = {
+        name: 'create_timer', 
+        type: 'timer',
+        data: {
+          type: 'crafting',
+          name: 'Crafting',
+        },
+        end: end
+      };
+      
+
+      window.postMessage(item);
+    }
+
+    function endCraftingTimer(){
+			console.log("called");
+
+      let item = {
+        name: 'end_timer', 
+        type: 'timer',
+        data: {
+          type: 'crafting',
+          name: 'Crafting',
+        },
+        end: null
+      };
+      
+
+      window.postMessage(item);
+    }
+    
+
+    setInterval(() => {
+      checkIfThereIsOngoingCrafting();
+    }, 1000);
+    `;
+  }
+
   if(url.includes('simple-mmo.com/travel')){
     script += `
     var is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';

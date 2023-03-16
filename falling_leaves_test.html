@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="width: 100vw; height: 100vh; overflow: hidden;">
+    <div class="leaf_container">
+        <div class="leaf">
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+            <div><img src="https://web.simple-mmo.com/img/icons/rsz_leaf.png"></div>
+        </div>
+    </div>
+    <style>
+        .leaf_container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: all;
+            min-height: 100vh;
+            min-width: 100vw;
+        }
+
+        .leaf,
+        .leaf div {
+            position: absolute
+        }
+
+        .leaf {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0
+        }
+
+        .leaf div {
+            display: block;
+            top: -30%;
+        }
+
+        .leaf div:first-child {
+            left: 20%;
+            animation: 15s linear 0s infinite fall
+        }
+
+        .leaf div:nth-child(2) {
+            left: 70%;
+            animation: 13s linear 0s infinite fall
+        }
+
+        .leaf div:nth-child(3) {
+            left: 10%;
+            animation: 16s linear 0s infinite fall
+        }
+
+        .leaf div:nth-child(4) {
+            left: 50%;
+            animation: 12s linear 10s infinite fall
+        }
+
+        .leaf div:nth-child(5) {
+            left: 85%;
+            animation: 14s linear 10s infinite fall
+        }
+
+        .leaf div:nth-child(6) {
+            left: 65%;
+            animation: 13s linear 12s infinite fall
+        }
+
+        .leaf div:nth-child(7) {
+            left: 90%;
+            animation: 12s linear 8s infinite fall
+        }
+
+        .leaf div:nth-child(8) {
+            left: 70%;
+            animation: 15s linear 6s infinite fall
+        }
+
+        .leaf div:nth-child(9) {
+            left: 40%;
+            animation: 11s linear 9s infinite fall
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                top: -10%;
+                transform: rotate(0)
+            }
+
+            20% {
+                opacity: .8;
+                transform: rotate(45deg)
+            }
+
+            40% {
+                transform: (90deg)
+            }
+
+            60% {
+                transform: rotate(135deg)
+            }
+
+            80% {
+                transform: rotate(180deg)
+            }
+
+            100% {
+                opacity: .5;
+                top: 110%;
+                transform: (225deg)
+            }
+        }
+    </style>
+</body>
+
+</html>
