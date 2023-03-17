@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.97",
+      "date": "2023-03-17T12:20:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed duplicite window at Combat"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.96",
       "date": "2023-03-17T12:10:18.175Z",
       "changes": [
