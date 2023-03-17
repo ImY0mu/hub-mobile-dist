@@ -2,6 +2,19 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.96",
+      "date": "2023-03-17T12:10:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Reworded description at Travel Mode Gathering",
+            "Fixed typo that prevented launching some of the Travel Modes"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.95",
       "date": "2023-03-17T12:00:18.175Z",
       "changes": [
