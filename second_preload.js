@@ -1193,6 +1193,16 @@ const getRequiredScripts = async (url) => {
       }
 
       var difficulty = localStorage.travel_mod_difficulty;
+
+      const injectCSS = css => {
+        let el = document.createElement('style');
+        el.type = 'text/css';
+        el.innerText = css;
+        document.head.appendChild(el);
+        return el;
+      };
+      
+      injectCSS('.disabled{ pointer-events: none; opacity: 30%; }');
   
       function stepMutator(){
         // Select the node that will be observed for mutations

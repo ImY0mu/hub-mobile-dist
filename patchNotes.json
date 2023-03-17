@@ -7,7 +7,7 @@
       "changes": [
         { "title": "Bugs", "items": 
           [
-            "Fixed duplicite window at Combat"
+            "Fixed travel attack button not getting disabled in Travel Mode"
           ] 
         }
       ]
