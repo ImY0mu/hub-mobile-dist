@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       console.log(event.data);
       sendToWindow('updateDiscordActivity', event.data)
     }
-    if(event.data.type == "stepTaken"){
-      sendToWindow('stepTaken', event.data.key)
+    if(event.data.type == "takeStep"){
+      sendToWindow('takeStep', event.data.key)
     }
     if(event.data.type == "openPageWithSubMenu"){
       sendToWindow('openPageWithSubMenu', event.data)
@@ -759,7 +759,7 @@ const getRequiredScripts = async (url) => {
       }
 
       var item = {
-        type: "stepTaken",
+        type: "takeStep",
       }
       window.postMessage(item);
     }

@@ -2,6 +2,20 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.95",
+      "date": "2023-03-17T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Rewrote the whole Step Mode feature into Travel Mode (beta)",
+            "Travel mode includes Gathering, Battling and Stepping",
+            "Future improvements of Travel Mode are already planned"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.94",
       "date": "2023-03-16T12:00:18.175Z",
       "changes": [

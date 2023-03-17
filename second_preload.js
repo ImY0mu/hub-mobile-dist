@@ -60,8 +60,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(event.data.name == "keybind"){
       sendToWindow('keybind', event.data.key)
     }
-    if(event.data.name == "stepTaken"){
-      sendToWindow('stepTaken', event.data.key)
+    if(event.data.name == "takeStep"){
+      sendToWindow('takeStep', event.data.key)
+    }
+    if(event.data.name == "untakeStep"){
+      console.log('untakeStep');
+      sendToWindow('untakeStep', event.data)
+    }
+    if(event.data.name == "gatherNode"){
+      sendToWindow('gatherNode', event.data)
+    }
+    if(event.data.name == "ungatherNode"){
+      console.log('ungatherNode');
+      sendToWindow('ungatherNode', event.data)
+    }
+    if(event.data.name == "killedEnemy"){
+      sendToWindow('killedEnemy', event.data)
+    }
+    if(event.data.name == "unkilledEnemy"){
+      console.log('unkilledEnemy');
+      sendToWindow('unkilledEnemy', event.data)
     }
     if(event.data.name == "updatePlayer"){
       sendToWindow('updatePlayer')
@@ -640,6 +658,110 @@ const getRequiredScripts = async (url) => {
     var is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
     var original_bg = null;
 
+    var counted_battle = false;
+    var interval = null;
+
+    function prepareBattle(){
+      var buttons = document.querySelectorAll('button');
+      var attack_button = null;
+
+      buttons.forEach(element => {
+        if(element.innerText.includes('Attack') && !element.innerText.includes('Special'))
+            return attack_button = element;
+      });
+
+      attack_button.setAttribute('onclick', 'startInterval();');
+    }
+
+    prepareBattle();
+
+    function startInterval(){
+      interval = setInterval(() => {
+        checkIfTheBattleHasEnded();
+        console.log("Called");
+      }, 100);
+    }
+
+    function killedNpc(){
+      var item = {
+        name: "killedEnemy",
+      }
+      window.postMessage(item);
+    }
+
+    var rarity = null;
+
+    function getRarity(){
+      var common = document.querySelector('.common-item');
+      var uncommon = document.querySelector('.uncommon-item');
+      var rare = document.querySelector('.rare-item');
+      var elite = document.querySelector('.elite-item');
+      var epic = document.querySelector('.epic-item');
+      var legendary = document.querySelector('.legendary-item');
+      var celestial = document.querySelector('.celestial-item');
+      var exotic = document.querySelector('.exotic-item');
+
+      if(common != null)
+        return rarity = 'common';
+      
+      if(uncommon != null)
+        return rarity = 'uncommon';
+      
+      if(rare != null)
+        return rarity = 'rare';
+      
+      if(elite != null)
+        return rarity = 'elite';
+
+      if(epic != null)
+        return rarity = 'epic';
+
+      if(legendary != null)
+        return rarity = 'legendary';
+
+      if(celestial != null)
+        return rarity = 'celestial';
+
+      if(exotic != null)
+        return rarity = 'exotic';
+    }
+
+    var difficulty = localStorage.travel_mod_difficulty;
+
+    function checkIfTheBattleHasEnded(){
+      if(parseInt(document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].user.current_hp) <= 0)
+        return console.error("NO");
+
+      if(parseInt(document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].enemy.current_hp) > 0)
+        return console.warn("NO");
+
+      if(counted_battle)
+        return console.warn("NO");
+
+      counted_battle = true; 
+      clearInterval(interval);
+      getRarity();
+      
+      if(rarity != null && difficulty != 'easy'){
+        if(difficulty == 'medium')
+          return unkilledNpc(2);
+        
+        if(difficulty == 'hard')
+          return unkilledNpc(3);
+      }
+      
+      killedNpc();
+    }
+
+    function unkilledNpc(amount){
+      var item = {
+        name: "unkilledEnemy",
+        amount: amount
+      }
+      window.postMessage(item);
+    }
+
+
     function hideBackground(on_page_load = false){
       if(!on_page_load) is_bg_hidden = localStorage.getItem('is_bg_hidden') === 'true';
       if(!is_bg_hidden && on_page_load) return;
@@ -1061,6 +1183,16 @@ const getRequiredScripts = async (url) => {
         }
         window.postMessage(item);
       }
+
+      function untakeStep(amount){
+        var item = {
+          name: "untakeStep",
+          amount: amount
+        }
+        window.postMessage(item);
+      }
+
+      var difficulty = localStorage.travel_mod_difficulty;
   
       function stepMutator(){
         // Select the node that will be observed for mutations
@@ -1078,7 +1210,10 @@ const getRequiredScripts = async (url) => {
                     if(mutation.addedNodes[mutation.addedNodes.length-1].nodeName == 'DIV'){
                       console.error('IT has a BUTTON!');
                       var button = mutation.addedNodes[mutation.addedNodes.length-1].querySelector('button');
-  
+                      if(difficulty == 'medium' || difficulty == 'hard'){
+                        untakeStep(1);
+                      }
+                      
                       try{
                         button.setAttribute('x-on:click', 'clicked=true;' + button.getAttribute('x-on:click').split(';')[1].replace('document.location=', 'openPage(').replace("?new_page=true'", "?new_page=true')"));
                       }
@@ -1092,6 +1227,10 @@ const getRequiredScripts = async (url) => {
                       console.log(mutation.addedNodes[mutation.addedNodes.length-1]);
                       var button = mutation.addedNodes[mutation.addedNodes.length-1].querySelectorAll('a')[0];
   
+                      if(difficulty == 'hard'){
+                        untakeStep(1);
+                      }
+
                       try{
                         var link = button.getAttribute('href');
                         button.setAttribute('onclick', "openPage('" + link + "');");
@@ -1178,7 +1317,7 @@ const getRequiredScripts = async (url) => {
         }
 
         var item = {
-          name: "stepTaken",
+          name: "takeStep",
         }
         window.postMessage(item);
       }
@@ -1208,6 +1347,120 @@ const getRequiredScripts = async (url) => {
       partyCheck();
     `;
     
+  }
+
+  if(url.includes('crafting/material/gather/')){
+    script += `
+      var rarity = 'common';
+      var level = 0;
+
+      function prepareGathering(){
+        var button = document.querySelector('button#crafting_button');
+        button.setAttribute('onclick', 'gatherNodeController();');
+
+        level = document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].crafting_level;
+      }
+
+      function getRarity(){
+        var common = document.querySelector('.common-item');
+        var uncommon = document.querySelector('.uncommon-item');
+        var rare = document.querySelector('.rare-item');
+        var elite = document.querySelector('.elite-item');
+        var epic = document.querySelector('.epic-item');
+        var legendary = document.querySelector('.legendary-item');
+        var celestial = document.querySelector('.celestial-item');
+        var exotic = document.querySelector('.exotic-item');
+
+        if(common != null)
+          return rarity = 'common';
+        
+        if(uncommon != null)
+          return rarity = 'uncommon';
+        
+        if(rare != null)
+          return rarity = 'rare';
+        
+        if(elite != null)
+          return rarity = 'elite';
+
+        if(epic != null)
+          return rarity = 'epic';
+
+        if(legendary != null)
+          return rarity = 'legendary';
+
+        if(celestial != null)
+          return rarity = 'celestial';
+
+        if(exotic != null)
+          return rarity = 'exotic';
+      }
+
+      getRarity();
+
+      
+    var difficulty = localStorage.travel_mod_difficulty;
+
+    function ungatherNode(amount){
+      var item = {
+        name: "ungatherNode",
+        rarity: rarity,
+        amount: amount
+      }
+      window.postMessage(item);
+    }
+
+      function gatherNodeController(){
+        if(document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].close_window)
+          return;
+
+        if(level != document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].crafting_level){
+          level = document.querySelector(".container-two .max-w-7xl.mx-auto")._x_dataStack[0].crafting_level;
+          
+          if(difficulty == 'easy'){
+            gatherNode();
+            gatherNode();
+            gatherNode();
+            return;
+          }
+
+          if(difficulty == 'medium'){
+            return ungatherNode(2);
+          }
+
+          if(difficulty == 'hard'){
+            return ungatherNode(5);
+          }
+        }
+
+        if(rarity == 'common'){
+          if(difficulty == 'medium' || difficulty == 'hard'){
+            //return ungatherNode(1);
+            return;
+          }
+        }
+
+        if(rarity == 'uncommon'){
+          if(difficulty == 'hard' && level >= 3){
+            //return ungatherNode(1);
+            return;
+          }
+          return gatherNode();
+        }
+
+        gatherNode();
+      }
+
+      function gatherNode(){
+        var item = {
+          name: "gatherNode",
+          rarity: rarity
+        }
+        window.postMessage(item);
+      }
+
+      prepareGathering();
+    `;
   }
 
   if(url.includes('simple-mmo.com/inventory/storage')){ // inventory collect stuff
