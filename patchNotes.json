@@ -2,6 +2,24 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.98",
+      "date": "2023-03-24T12:20:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Updated to work with App Hub Key system",
+            "Clicking on World Boss or Crafting timer when the timer ends takes you to their pages"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed badges in menu"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.97",
       "date": "2023-03-17T12:20:18.175Z",
       "changes": [
