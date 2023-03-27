@@ -2,8 +2,20 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "0.0.99",
+      "date": "2023-03-27T12:30:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed trial keybinds error"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.98",
-      "date": "2023-03-24T12:20:18.175Z",
+      "date": "2023-03-27T12:20:18.175Z",
       "changes": [
         { "title": "General", "items": 
           [
