@@ -2,6 +2,26 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "1.0.0",
+      "date": "2023-05-17T12:00:18.175Z",
+      "changes": [
+        { "title": "General", "items": 
+          [
+            "Added Bounties keybind",
+            "Added Orphanage keybind",
+            "Added Healer keybind",
+            "Added Mahol's hut keybind"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed view tasks button at home page"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "0.0.101",
       "date": "2023-05-17T12:00:18.175Z",
       "changes": [
