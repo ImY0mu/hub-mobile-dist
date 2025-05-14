@@ -123,16 +123,16 @@ const getRequiredScripts = async (url) => {
     function changeScrollBar(){
       var styles = "";
       if (window.getComputedStyle(document.body, null).getPropertyValue("background-color") == "rgb(13, 13, 13)"){
-        styles = "::-webkit-scrollbar {width: 4px; height: 4px;} ::-webkit-scrollbar-thumb {background: rgba(30, 30, 30, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(22, 22, 22, 1);} ::-webkit-scrollbar-track {background: rgb(50, 50, 50);}";
+        styles = "::-webkit-scrollbar {width: 8px;} ::-webkit-scrollbar-thumb {background: rgba(30, 30, 30, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(22, 22, 22, 1);} ::-webkit-scrollbar-track {background: rgb(50, 50, 50);}";
       } 
       else{
-        styles = "::-webkit-scrollbar {width: 4px; height: 4px;} ::-webkit-scrollbar-thumb {background: rgba(180, 180, 180, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(200, 200, 200, 1);} ::-webkit-scrollbar-track {background: rgb(220, 220, 220);}";
+        styles = "::-webkit-scrollbar {width: 8px;} ::-webkit-scrollbar-thumb {background: rgba(180, 180, 180, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(200, 200, 200, 1);} ::-webkit-scrollbar-track {background: rgb(220, 220, 220);}";
       }
       var styleSheet = document.createElement("style")
       styleSheet.type = "text/css"
       styleSheet.innerText = styles
       document.head.appendChild(styleSheet)
-    }
+    } 
 
     changeScrollBar();
 
@@ -658,8 +658,9 @@ const getRequiredScripts = async (url) => {
                     console.error('IT has a BUTTON!');
                     var button = mutation.addedNodes[mutation.addedNodes.length-1].querySelector('button');
 
+                    // Commented out as it broke new ghost step fix.
                     try{
-                      button.setAttribute('x-on:click', 'clicked=true;' + button.getAttribute('x-on:click').split(';')[1].replace('document.location=', 'openPage(').replace("?new_page=true'", "?new_page=true')"));
+                      //button.setAttribute('x-on:click', 'clicked=true;' + button.getAttribute('x-on:click').split(';')[1].replace('document.location=', 'openPage(').replace("?new_page=true'", "?new_page=true')"));
                     }
                     catch(e){
                       console.log(e);

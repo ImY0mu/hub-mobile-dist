@@ -113,10 +113,10 @@ const getRequiredScripts = async (url) => {
     function changeScrollBar(){
       var styles = "";
       if (window.getComputedStyle(document.body, null).getPropertyValue("background-color") == "rgb(13, 13, 13)"){
-        styles = "::-webkit-scrollbar {width: 4px; height: 4px;} ::-webkit-scrollbar-thumb {background: rgba(30, 30, 30, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(22, 22, 22, 1);} ::-webkit-scrollbar-track {background: rgb(50, 50, 50);}";
+        styles = "::-webkit-scrollbar {width: 8px;} ::-webkit-scrollbar-thumb {background: rgba(30, 30, 30, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(22, 22, 22, 1);} ::-webkit-scrollbar-track {background: rgb(50, 50, 50);}";
       } 
       else{
-        styles = "::-webkit-scrollbar {width: 4px; height: 4px;} ::-webkit-scrollbar-thumb {background: rgba(180, 180, 180, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(200, 200, 200, 1);} ::-webkit-scrollbar-track {background: rgb(220, 220, 220);}";
+        styles = "::-webkit-scrollbar {width: 8px;} ::-webkit-scrollbar-thumb {background: rgba(180, 180, 180, 1);} ::-webkit-scrollbar-thumb:hover {background: rgba(200, 200, 200, 1);} ::-webkit-scrollbar-track {background: rgb(220, 220, 220);}";
       }
       var styleSheet = document.createElement("style")
       styleSheet.type = "text/css"
@@ -1224,8 +1224,9 @@ const getRequiredScripts = async (url) => {
                         untakeStep(1);
                       }
                       
+                      // Commented out as it broke new ghost step fix.
                       try{
-                        button.setAttribute('x-on:click', 'clicked=true;' + button.getAttribute('x-on:click').split(';')[1].replace('document.location=', 'openPage(').replace("?new_page=true'", "?new_page=true')"));
+                        //button.setAttribute('x-on:click', 'clicked=true;' + button.getAttribute('x-on:click').split(';')[1].replace('document.location=', 'openPage(').replace("?new_page=true'", "?new_page=true')"));
                       }
                       catch(e){
                         console.log(e);
@@ -1723,19 +1724,19 @@ const getRequiredScripts = async (url) => {
         switch (patreon.tier) {
           case 1:
             var icon = url + 'patreon/blue_diamond.png?injector=AppHubApp%20Hub';
-            document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+            document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white neutral:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
           case 2:
             var icon = url + 'patreon/green_diamond.png?injector=AppHubApp%20Hub';
-            document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+            document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white neutral:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
           case 3:
             var icon = url + 'patreon/ruby_diamond.png?injector=App%20Hub';
-            document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+            document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white neutral:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
           default:
             // if(patreons[k].icon != '') var icon = url + 'patreon/' + patreons[k].icon.replace('http://y0mu.mablog.eu/patreon_images/', '');
-            // document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
+            // document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white neutral:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Patreon Supporter</span></span></div>');
             break;
         }
       }
@@ -1745,7 +1746,7 @@ const getRequiredScripts = async (url) => {
         var url = localStorage.localhost;
 
         var icon = url + 'patreon/CC_white_outline.png?injector=App%20Hub';
-        document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white dark:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Couch Cat</span></span></div>');
+        document.querySelector('.container-two .max-w-7xl.mx-auto .text-center.pt-16').insertAdjacentHTML('beforeend', '<div><span class="inline-flex items-center justify-center pl-1 pr-3 py-0.5 rounded text-xs font-medium bg-white neutral:bg-gray-800 mt-1 text-gray-900 border border-gray-300"><img class="w-6 h-6" src="' + icon + '" /><span class="ml-1">Couch Cat</span></span></div>');
       }
       isPatreon();
       isCcPodcast();
