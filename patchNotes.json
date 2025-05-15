@@ -7,12 +7,16 @@
       "changes": [
         { "title": "General", "items": 
           [
+            "Updated Quests and Job keybinds",
+            "Added Vault keybind"
+          ] 
+        },
+        { "title": "Bugs", "items": 
+          [
             "Fixed keybinds not showing up",
             "Fixed buff times not showing up",
             "Fixed footer circle cut overflowing",
-            "Fixed footer travel icon color",
-            "Updated Quests and Job keybinds",
-            "Added Vault keybind"
+            "Fixed footer travel icon color"
           ] 
         }
       ]
