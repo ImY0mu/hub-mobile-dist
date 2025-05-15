@@ -14,7 +14,7 @@
         { "title": "Bugs", "items": 
           [
             "Fixed keybinds not showing up",
-            "Fixed buff times not showing up",
+            "Fixed buff timers not showing up",
             "Fixed footer circle cut overflowing",
             "Fixed footer travel icon color"
           ] 
