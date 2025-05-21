@@ -2,6 +2,18 @@
   "notes": [
     {
       "title": "Changes",
+      "version": "1.0.4",
+      "date": "2025-05-21T12:00:18.175Z",
+      "changes": [
+        { "title": "Bugs", "items": 
+          [
+            "Fixed travel mode"
+          ] 
+        }
+      ]
+    },
+    {
+      "title": "Changes",
       "version": "1.0.3",
       "date": "2025-05-15T12:00:18.175Z",
       "changes": [
@@ -14,7 +26,7 @@
         { "title": "Bugs", "items": 
           [
             "Fixed keybinds not showing up",
-            "Fixed buff timers not showing up",
+            "Fixed buff times not showing up",
             "Fixed footer circle cut overflowing",
             "Fixed footer travel icon color"
           ] 
@@ -28,11 +40,15 @@
       "changes": [
         { "title": "General", "items": 
           [
-            "Fixed ghost step fix breaking client",
             "Updated quests link",
-            "Updated profession link",
-            "Fixed horse and carriage not working"
+            "Updated profession link"
           ] 
+        },
+        { "title": "Bugs", "items": 
+          [
+            "Fixed horse and carriage not working",
+            "Fixed ghost step fix breaking client"
+          ]
         }
       ]
     },
