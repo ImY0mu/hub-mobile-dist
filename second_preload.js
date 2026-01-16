@@ -231,6 +231,31 @@ const getRequiredScripts = async (url) => {
     `;
   }
 
+    if(url.includes('/temple')){
+      script += `
+        try{
+          setInterval(() => {
+            let worship_buttons = document.querySelectorAll('.nightwind-prevent.inline-flex.justify-center.rounded-md.border.border-transparent.shadow-sm.px-4.py-2.bg-indigo-600.font-medium.text-white.w-full');
+
+            worship_buttons.forEach(element => {
+              if(element.innerText !== 'Worship')
+                return console.log('Wrong');
+
+
+              if(!element.getAttribute('x-on:click').includes('templeTimer')){
+                console.log('Got here!');
+                element.setAttribute('x-on:click', 'templeTimer(selected_god.key); ' + element.getAttribute('x-on:click'));
+              }
+            });
+
+          }, 100);
+        }
+        catch(e){
+          console.log(e);
+        }
+      `;
+  }
+
   if(url.includes('/collection/')){
     script += `
     var item = {
@@ -1150,10 +1175,12 @@ const getRequiredScripts = async (url) => {
 
     prepare_sprint();
 
-
+    
     function start_sprint(){
       var value = parseInt(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes);
-      var current_energy = parseInt(document.querySelector('#player-popup')._x_dataStack[0].user.current_energy);
+      var current_energy = parseInt(document.querySelector('#user_popup_data')._x_dataStack[0].user.energy_points.current);
+
+      console.log("Starting the sprint for " + value + " minutes");
 
       if(value > current_energy) return console.error('You do not have enough energy to do this.');
       
@@ -1166,7 +1193,9 @@ const getRequiredScripts = async (url) => {
           value: value,
         },
         end: null
-      }; 
+      };
+      
+
 
       window.postMessage(item);
     }
@@ -1823,19 +1852,6 @@ const getRequiredScriptsAfter = async (url) => {
       catch(e){
         console.log(e);
       }
-    `;
-  }
-
-  if(url.includes('simple-mmo.com/temple')){
-    script += `
-    try{
-      eval(worshipGod.toString()
-        .replace('if (result.value) {', 'if (result.value) { templeTimer(god);')
-      );
-    }
-    catch(e){
-      console.log(e);
-    }
     `;
   }
 

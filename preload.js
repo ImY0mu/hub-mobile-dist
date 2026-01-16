@@ -584,7 +584,7 @@ const getRequiredScripts = async (url) => {
 
     function start_sprint(){
       var value = parseInt(document.querySelector('#complete-travel-container')._x_dataStack[0].sprint.minutes);
-      var current_energy = parseInt(document.querySelector('#player-popup')._x_dataStack[0].user.current_energy);
+      var current_energy = parseInt(document.querySelector('#user_popup_data')._x_dataStack[0].user.energy_points.current);
 
       console.log("Starting the sprint for " + value + " minutes");
 
